@@ -6,7 +6,7 @@
 /*   By: sclam <sclam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 20:14:45 by sclam             #+#    #+#             */
-/*   Updated: 2022/04/14 20:11:32 by sclam            ###   ########.fr       */
+/*   Updated: 2022/04/15 16:47:12 by sclam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,23 @@ static int	check_line(char *str)
 t_img	*asset(t_data *data, char *str)
 {
 	t_img	*img;
+	void	*ptr;
+	int		fd;
 
+	ptr = NULL;
 	img = (t_img *)malloc(sizeof(t_img));
 	if (!img)
 		return (NULL);
-	img->img = mlx_xpm_file_to_image(data->mlx.mlx, str, 0, 0);
-	if (!img->img)
+	fd = open(str, O_RDONLY);
+	if (fd == -1)
+	{
+		free(img);
+		return (NULL);
+	}
+	close(fd);
+	ptr = mlx_xpm_file_to_image(data->mlx.mlx, str, &img->w, &img->h);
+	img->img = ptr;
+	if (img->img == NULL)
 	{
 		free(img);
 		return (NULL);

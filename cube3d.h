@@ -6,7 +6,7 @@
 /*   By: sclam <sclam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 14:48:12 by sclam             #+#    #+#             */
-/*   Updated: 2022/04/14 20:13:39 by sclam            ###   ########.fr       */
+/*   Updated: 2022/04/15 17:01:28 by sclam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <sys/stat.h>
 # include <fcntl.h>
 # include <stdio.h>
-# include <mlx.h>
+# include "./mlx/mlx.h"
 # include <math.h>
 
 #define MAP_TILE 4
@@ -34,6 +34,8 @@
 #define RIGHT 124
 #define WIDTH 1600
 #define HEIGHT 900
+#define TEX_W 64
+#define TEX_H 64
 
 typedef struct s_point
 {
@@ -58,6 +60,8 @@ typedef struct s_img
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
+	int		h;
+	int		w;
 } t_img;
 
 typedef struct s_info

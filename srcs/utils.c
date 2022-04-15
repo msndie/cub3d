@@ -6,7 +6,7 @@
 /*   By: sclam <sclam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 20:15:16 by sclam             #+#    #+#             */
-/*   Updated: 2022/04/13 20:16:43 by sclam            ###   ########.fr       */
+/*   Updated: 2022/04/15 16:47:59 by sclam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ void	free_all(t_data *data)
 		free(data->info.we);
 	if (data->info.int_map)
 		ft_free_arr((void **)data->info.int_map);
+	if (data->mlx.mlx)
+		mlx_destroy_window(data->mlx.mlx, data->mlx.win);
 }
 
 int	ft_in_set(char c, char const *set)
@@ -83,4 +85,5 @@ void	null_init(t_data *data)
 	data->info.we = NULL;
 	data->info.map = NULL;
 	data->img.img = NULL;
+	data->mlx.mlx = NULL;
 }
