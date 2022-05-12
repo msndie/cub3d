@@ -6,7 +6,7 @@
 /*   By: sclam <sclam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 14:43:39 by sclam             #+#    #+#             */
-/*   Updated: 2022/04/15 20:38:51 by sclam            ###   ########.fr       */
+/*   Updated: 2022/05/06 20:41:45 by sclam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,51 +34,27 @@ static int	ft_key_hook(int keycode, t_data *data)
 
 	moveSpeed = 0.15;
 	rotSpeed = 0.1;
+	printf("%f dir_y %f dir_x %f plane_y %f plane_x\n", data->rays.dir_y, data->rays.dir_x, data->rays.plane_y, data->rays.plane_x);
 	if (keycode == W)
 	{
-		// if ((int)(data->p.y + data->rays.dir_y * moveSpeed) >= 0 && (int)(data->p.y + data->rays.dir_y * moveSpeed) < data->info.height)
-		// {
-		// 	printf("%d - y", (int)(data->p.y + data->rays.dir_y * moveSpeed));
-		// 	// if (data->info.int_map[(int)(data->p.y + data->rays.dir_y * moveSpeed)][(int)data->p.x] != 1)
-		// 		data->p.y += data->rays.dir_y * moveSpeed;
-		// }
-		// if ((int)(data->p.x + data->rays.dir_x * moveSpeed) >= 0 && (int)(data->p.x + data->rays.dir_x * moveSpeed) < data->info.width)
-		// {
-		// 	printf("    %d - x\n", (int)(data->p.x + data->rays.dir_x * moveSpeed));
-		// 	// if (data->info.int_map[(int)data->p.y][(int)(data->p.x + data->rays.dir_x * moveSpeed)] != 1)
-		// 		data->p.x += data->rays.dir_x * moveSpeed;
-		// }
-
 		if (data->info.int_map[(int)(data->p.y + data->rays.dir_y * moveSpeed)][(int)data->p.x] != 1)
 			data->p.y += data->rays.dir_y * moveSpeed;
 		if (data->info.int_map[(int)data->p.y][(int)(data->p.x + data->rays.dir_x * moveSpeed)] != 1)
 			data->p.x += data->rays.dir_x * moveSpeed;
-
 	}
 	if (keycode == S)
 	{
-
-
-		// if (data->info.int_map[(int)(data->p.x - data->dir_x * moveSpeed)][(int)data->p.y] != 1)
-		// 	data->p.x -= data->dir_x * moveSpeed;
-		// if (data->info.int_map[(int)data->p.x][(int)(data->p.y - data->dir_y * moveSpeed)] != 1)
-		// 	data->p.y -= data->dir_y * moveSpeed;
-
 		if (data->info.int_map[(int)(data->p.y - data->rays.dir_y * moveSpeed)][(int)data->p.x] != 1)
 			data->p.y -= data->rays.dir_y * moveSpeed;
 		if (data->info.int_map[(int)data->p.y][(int)(data->p.x - data->rays.dir_x * moveSpeed)] != 1)
 			data->p.x -= data->rays.dir_x * moveSpeed;
-
 	}
 	if (keycode == A)
 	{
-		if (data->info.int_map[(int)(data->p.y + data->rays.plane_y * moveSpeed)][(int)data->p.x] != 1)
+		if (data->info.int_map[(int)(data->p.y - data->rays.plane_y * moveSpeed)][(int)data->p.x] != 1)
 			data->p.y -= data->rays.plane_y * moveSpeed;
-		if (data->info.int_map[(int)data->p.y][(int)(data->p.x + data->rays.plane_x * moveSpeed)] != 1)
+		if (data->info.int_map[(int)data->p.y][(int)(data->p.x - data->rays.plane_x * moveSpeed)] != 1)
 			data->p.x -= data->rays.plane_x * moveSpeed;
-		
-		// data->p.x -= 0.1f;
-		// render(data);
 	}
 	if (keycode == D)
 	{
@@ -86,21 +62,9 @@ static int	ft_key_hook(int keycode, t_data *data)
 			data->p.y += data->rays.plane_y * moveSpeed;
 		if (data->info.int_map[(int)data->p.y][(int)(data->p.x + data->rays.plane_x * moveSpeed)] != 1)
 			data->p.x += data->rays.plane_x * moveSpeed;
-
-		// data->p.x += 0.1f;
-		// render(data);
 	}
 	if (keycode == LEFT)
 	{
-
-
-		// double oldDirX = data->dir_x;
-		// data->dir_x = data->dir_x * cos(rotSpeed) - data->dir_y * sin(rotSpeed);
-		// data->dir_y = oldDirX * sin(rotSpeed) + data->dir_y * cos(rotSpeed);
-		// double oldPlaneX = data->plane_x;
-		// data->plane_x = data->plane_x * cos(rotSpeed) - data->plane_y * sin(rotSpeed);
-		// data->plane_y = oldPlaneX * sin(rotSpeed) + data->plane_y * cos(rotSpeed);
-
 		double oldDirX = data->rays.dir_x;
 		data->rays.dir_x = data->rays.dir_x * cos(-rotSpeed) - data->rays.dir_y * sin(-rotSpeed);
 		data->rays.dir_y = oldDirX * sin(-rotSpeed) + data->rays.dir_y * cos(-rotSpeed);
@@ -117,13 +81,6 @@ static int	ft_key_hook(int keycode, t_data *data)
 		double oldPlaneX = data->rays.plane_x;
 		data->rays.plane_x = data->rays.plane_x * cos(rotSpeed) - data->rays.plane_y * sin(rotSpeed);
 		data->rays.plane_y = oldPlaneX * sin(rotSpeed) + data->rays.plane_y * cos(rotSpeed);
-
-		// double oldDirX = data->dir_x;
-		// data->dir_x = data->dir_x * cos(-rotSpeed) - data->dir_y * sin(-rotSpeed);
-		// data->dir_y = oldDirX * sin(-rotSpeed) + data->dir_y * cos(-rotSpeed);
-		// double oldPlaneX = data->plane_x;
-		// data->plane_x = data->plane_x * cos(-rotSpeed) - data->plane_y * sin(-rotSpeed);
-		// data->plane_y = oldPlaneX * sin(-rotSpeed) + data->plane_y * cos(-rotSpeed);
 	}
 	if (keycode == 53)
 	{
@@ -326,13 +283,23 @@ int	loop_hook(t_data *data)
 			// int color = data->info.no->addr[TEX_H * texY + texX];
 			// c.r = 
 			// int color = data->info.no->addr[texY * TEX_W + texX * (data->info.no->bits_per_pixel / 8)];
-			int color = get_tex_colour(data->info.no, texX, texY);
+			int color;
+			if (side == 1 && data->rays.dir_y < 0 && data->rays.dir_y < data->rays.dir_x)
+				color = get_tex_colour(data->info.so, texX, texY);
+			else if (side == 1 && data->rays.dir_y > 0 && data->rays.dir_y > data->rays.dir_x)
+				color = get_tex_colour(data->info.no, texX, texY);
+			else if (side == 0 && data->rays.dir_x > 0 && data->rays.dir_x > data->rays.dir_y)
+				color = get_tex_colour(data->info.we, texX, texY);
+			else
+				color = get_tex_colour(data->info.ea, texX, texY);
 			// get_colour(&c, color);
 			if(side == 1)
 				color = (color >> 1) & 8355711;
 			// my_mlx_pixel_put(&data->img, x, y, create_trgb(00, c.r, c.g, c.b));
 			my_mlx_pixel_put(&data->img, x, y, color);
 		}
+
+
 		double floorXWall, floorYWall;
 		if(side == 0 && rayDirX > 0)
 		{
@@ -364,6 +331,7 @@ int	loop_hook(t_data *data)
 			drawEnd = HEIGHT; //becomes < 0 when the integer overflows
 
 		//draw the floor from drawEnd to the bottom of the screen
+		// printf("%d end %d start\n", drawEnd, drawStart);
 		for(int y = drawEnd + 1; y < HEIGHT; y++)
 		{
 			// currentDist = HEIGHT / (2.0 * y - HEIGHT); //you could make a small lookup table for this instead
@@ -382,8 +350,29 @@ int	loop_hook(t_data *data)
 			my_mlx_pixel_put(&data->img, x, y, data->info.f->trgb);
 			//ceiling (symmetrical!)
 			// buffer[h - y][x] = texture[6][texWidth * floorTexY + floorTexX];
-			my_mlx_pixel_put(&data->img, x, HEIGHT - y, data->info.c->trgb);
+			// my_mlx_pixel_put(&data->img, x, HEIGHT - y, data->info.c->trgb);
 		}
+		for(int y = drawStart - 1; y > 0; y--)
+		{
+			// currentDist = HEIGHT / (2.0 * y - HEIGHT); //you could make a small lookup table for this instead
+
+			// double weight = (currentDist - distPlayer) / (distWall - distPlayer);
+
+			// double currentFloorX = weight * floorXWall + (1.0 - weight) * data->p.x;
+			// double currentFloorY = weight * floorYWall + (1.0 - weight) * data->p.y;
+
+			// int floorTexX, floorTexY;
+			// floorTexX = (int)(currentFloorX * TEX_W) % texWidth;
+			// floorTexY = (int)(currentFloorY * TEX_H) % texHeight;
+
+			//floor
+			// buffer[y][x] = (texture[3][texWidth * floorTexY + floorTexX] >> 1) & 8355711;
+			// my_mlx_pixel_put(&data->img, x, y, data->info.f->trgb);
+			//ceiling (symmetrical!)
+			// buffer[h - y][x] = texture[6][texWidth * floorTexY + floorTexX];
+			my_mlx_pixel_put(&data->img, x, y, data->info.c->trgb);
+		}
+
 	}
 	render(data);
 	return (0);
@@ -404,7 +393,12 @@ int main(int argc, char **argv)
 	cub_extension(argv[1]);
 	data.mlx.mlx = mlx_init();
 	data.mlx.win = mlx_new_window(data.mlx.mlx, WIDTH, HEIGHT, "cube3d");
+
+	// t_mystruct mystruct;
+	// mystruct = (t_mystruct){};
 	init_map(argv[1], &data);
+
+
 	if (check_walls(&data))
 	{
 		free_all(&data);

@@ -6,7 +6,7 @@
 /*   By: sclam <sclam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 14:48:12 by sclam             #+#    #+#             */
-/*   Updated: 2022/04/15 17:01:28 by sclam            ###   ########.fr       */
+/*   Updated: 2022/05/06 17:18:11 by sclam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@
 #define S 1
 #define LEFT 123
 #define RIGHT 124
-#define WIDTH 1600
-#define HEIGHT 900
+#define WIDTH 1920
+#define HEIGHT 1080
 #define TEX_W 64
 #define TEX_H 64
 
