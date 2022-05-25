@@ -6,7 +6,7 @@
 /*   By: sclam <sclam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 14:48:12 by sclam             #+#    #+#             */
-/*   Updated: 2022/05/06 17:18:11 by sclam            ###   ########.fr       */
+/*   Updated: 2022/05/25 16:29:09 by sclam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@
 # include <math.h>
 
 #define MAP_TILE 4
-#define PLAYER 2
+// #define PLAYER 2
+#define DOOR 2
 #define WALL 1
 #define EMPTY 0
 #define SPACE -1
@@ -32,10 +33,10 @@
 #define S 1
 #define LEFT 123
 #define RIGHT 124
-#define WIDTH 1920
-#define HEIGHT 1080
-#define TEX_W 64
-#define TEX_H 64
+#define TILDA 50
+#define WIDTH 1860
+#define HEIGHT 1024
+#define TEX 64
 
 typedef struct s_point
 {
@@ -72,6 +73,7 @@ typedef struct s_info
 	t_img		*so;
 	t_img		*we;
 	t_img		*ea;
+	t_img		*dr;
 	t_colour	*f;
 	t_colour	*c;
 	int			width;
@@ -92,7 +94,25 @@ typedef	struct s_rays
 	double	dir_y;
 	double	plane_x;
 	double	plane_y;
+	int		pitch;
 } t_rays;
+
+typedef struct s_keys
+{
+	short	w;
+	short	s;
+	short	a;
+	short	d;
+	short	left;
+	short	right;
+	short	tilda;
+} t_keys;
+
+typedef struct s_mouse
+{
+	int x;
+	int y;
+} t_mouse;
 
 
 typedef struct s_data {
@@ -104,6 +124,8 @@ typedef struct s_data {
 	t_img	img;
 	t_point	p;
 	t_rays	rays;
+	t_keys	keys;
+	t_mouse	mouse;
 } t_data;
 
 int		check_walls(t_data *data);

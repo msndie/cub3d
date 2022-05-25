@@ -6,7 +6,7 @@
 /*   By: sclam <sclam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 22:46:09 by sclam             #+#    #+#             */
-/*   Updated: 2022/04/14 20:14:16 by sclam            ###   ########.fr       */
+/*   Updated: 2022/05/25 16:36:03 by sclam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,29 +42,6 @@ void	draw_square(t_img *img, int size, int colour, int out_colour, t_point p)
 
 void	draw_line(t_img *img, int colour, t_point f, t_point t)
 {
-	// int	i;
-	// int	j;
-
-	// i = f.y;
-	// if (f.y > t.y)
-	// {
-	// 	i = t.y;
-	// 	t.y = f.y;
-	// }
-	// while (i <= t.y)
-	// {
-	// 	j = f.x;
-	// 	if (f.x > t.x)
-	// 	{
-	// 		j = t.x;
-	// 		t.x = f.x;
-	// 	}
-	// 	while (j <= t.x)
-	// 		my_mlx_pixel_put(img, j++, i, colour);
-	// 	++i;
-	// }
-
-
 	double	x;
 	double	y;
 	double	max;
@@ -83,21 +60,6 @@ void	draw_line(t_img *img, int colour, t_point f, t_point t)
 		f.y += y;
 		++n;
 	}
-
-	// int	m_new = 2 * ((int)t.y - (int)f.y);
-	// int	slope = m_new - ((int)t.x - (int)f.x);
-
-	// while ((int)f.x <= (int)t.x)
-	// {
-	// 	my_mlx_pixel_put(img, f.x, f.y, colour);
-	// 	slope += m_new;
-	// 	if (slope >= 0)
-	// 	{
-	// 		f.y += 1;
-	// 		slope -= 2 * (t.x - f.x);
-	// 	}
-	// 	f.x += 1;
-	// }
 }
 
 void	draw_player(t_data *data)
@@ -129,8 +91,11 @@ void	draw_map(t_data *data)
 			p.x = j * MAP_TILE;
 			if (data->info.int_map[i][j] == WALL)
 				draw_square(&data->map, MAP_TILE, 0xAAB0C4DE, 0x00000000, p);
-			else if (data->info.int_map[i][j] == PLAYER || data->info.int_map[i][j] == EMPTY)
+			// else if (data->info.int_map[i][j] == PLAYER || data->info.int_map[i][j] == EMPTY)
+			else if (data->info.int_map[i][j] == EMPTY)
 				draw_square(&data->map, MAP_TILE, 0xAAFFFFFF, 0xAAFFFFFF, p);
+			else if (data->info.int_map[i][j] == DOOR)
+				draw_square(&data->map, MAP_TILE, 0xAA00FF00, 0xAA00FF00, p);
 			else if (data->info.int_map[i][j] == SPACE)
 				draw_square(&data->map, MAP_TILE, 0xFF000000, 0xFF000000, p);
 			++j;

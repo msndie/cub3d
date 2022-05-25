@@ -6,7 +6,7 @@
 /*   By: sclam <sclam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 20:14:37 by sclam             #+#    #+#             */
-/*   Updated: 2022/04/14 15:52:10 by sclam            ###   ########.fr       */
+/*   Updated: 2022/05/25 16:44:03 by sclam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,25 +92,18 @@ int	find_pos(t_data *data)
 					return (error("Map"));
 				if (data->info.map[i][j] == 'N')
 				{
-					// data->dir_x = 0.0;
-					// data->dir_y = -1.0;
 					data->rays.plane_x = 0.66;
 					data->rays.plane_y = 0.0;
 					data->rays.dir_x = 0.0;
 					data->rays.dir_y = -1.0;
 				}
-					// data->pa = 3 * M_PI_2;
 				else if (data->info.map[i][j] == 'S')
 				{
-					// data->dir_x = 0.0;
-					// data->dir_y = 1.0;
-
 					data->rays.plane_x = -0.66;
 					data->rays.plane_y = 0.0;
 					data->rays.dir_x = 0.0;
 					data->rays.dir_y = 1.0;
 				}
-					// data->pa = M_PI_2;
 				else if (data->info.map[i][j] == 'W')
 				{
 					data->rays.plane_x = 0.0;
@@ -118,7 +111,6 @@ int	find_pos(t_data *data)
 					data->rays.dir_x = -1.0;
 					data->rays.dir_y = 0.0;
 				}
-					// data->pa = M_PI;
 				else if (data->info.map[i][j] == 'E')
 				{
 					data->rays.plane_x = 0.0;
@@ -126,7 +118,6 @@ int	find_pos(t_data *data)
 					data->rays.dir_x = 1.0;
 					data->rays.dir_y = 0.0;
 				}
-					// data->pa = 2 * M_PI;
 				data->p.x = j + 0.5;
 				data->p.y = i + 0.5;
 			}
@@ -175,10 +166,12 @@ void	map_to_int(t_data *data)
 		{
 			if (data->info.map[i][j] == '1')
 				data->info.int_map[i][j] = WALL;
-			else if (data->info.map[i][j] == '0')
+			else if (data->info.map[i][j] == '0' || ft_in_set(data->info.map[i][j], "NSWE"))
 				data->info.int_map[i][j] = EMPTY;
-			else if (ft_in_set(data->info.map[i][j], "NSWE"))
-				data->info.int_map[i][j] = PLAYER;
+			// else if (ft_in_set(data->info.map[i][j], "NSWE"))
+				// data->info.int_map[i][j] = PLAYER;
+			else if (data->info.map[i][j] == '2')
+				data->info.int_map[i][j] = DOOR;
 			else if (data->info.map[i][j] == ' ')
 				data->info.int_map[i][j] = SPACE;
 			++j;

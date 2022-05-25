@@ -6,7 +6,7 @@
 /*   By: sclam <sclam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 20:15:16 by sclam             #+#    #+#             */
-/*   Updated: 2022/04/15 16:47:59 by sclam            ###   ########.fr       */
+/*   Updated: 2022/05/25 16:37:24 by sclam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,4 +86,5 @@ void	null_init(t_data *data)
 	data->info.map = NULL;
 	data->img.img = NULL;
 	data->mlx.mlx = NULL;
+	data->info.dr = NULL;
 }
