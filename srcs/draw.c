@@ -6,7 +6,7 @@
 /*   By: sclam <sclam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 22:46:09 by sclam             #+#    #+#             */
-/*   Updated: 2022/05/25 16:36:03 by sclam            ###   ########.fr       */
+/*   Updated: 2022/05/25 21:59:00 by sclam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,8 +94,10 @@ void	draw_map(t_data *data)
 			// else if (data->info.int_map[i][j] == PLAYER || data->info.int_map[i][j] == EMPTY)
 			else if (data->info.int_map[i][j] == EMPTY)
 				draw_square(&data->map, MAP_TILE, 0xAAFFFFFF, 0xAAFFFFFF, p);
-			else if (data->info.int_map[i][j] == DOOR)
+			else if (data->info.int_map[i][j] == DOOR_CLOSED)
 				draw_square(&data->map, MAP_TILE, 0xAA00FF00, 0xAA00FF00, p);
+			// else if (data->info.int_map[i][j] == DOOR_CLOSED)
+			// 	draw_square(&data->map, MAP_TILE, 0xAAFF00FF, 0xAAFF00FF, p);
 			else if (data->info.int_map[i][j] == SPACE)
 				draw_square(&data->map, MAP_TILE, 0xFF000000, 0xFF000000, p);
 			++j;

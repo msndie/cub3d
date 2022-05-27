@@ -6,7 +6,7 @@
 /*   By: sclam <sclam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 14:48:12 by sclam             #+#    #+#             */
-/*   Updated: 2022/05/25 16:29:09 by sclam            ###   ########.fr       */
+/*   Updated: 2022/05/27 18:01:54 by sclam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@
 # include <math.h>
 
 #define MAP_TILE 4
-// #define PLAYER 2
-#define DOOR 2
+#define DOOR_CLOSED 4
+#define DOOR_OPENDED 3
 #define WALL 1
 #define EMPTY 0
 #define SPACE -1
@@ -34,9 +34,12 @@
 #define LEFT 123
 #define RIGHT 124
 #define TILDA 50
+#define SPACEBAR 49
 #define WIDTH 1860
 #define HEIGHT 1024
 #define TEX 64
+#define MOVE_SPEED 0.08
+#define ROT_SPEED 0.05
 
 typedef struct s_point
 {
@@ -65,6 +68,18 @@ typedef struct s_img
 	int		w;
 } t_img;
 
+typedef struct s_sonic
+{
+	double			x;
+	double			y;
+	double			dist;
+	t_img			*sonic_first;
+	t_img			*sonic_second;
+	t_img			*sonic_third;
+	short			stage;
+	struct s_sonic	*next;
+} t_sonic;
+
 typedef struct s_info
 {
 	char		**map;
@@ -73,14 +88,17 @@ typedef struct s_info
 	t_img		*so;
 	t_img		*we;
 	t_img		*ea;
+
 	t_img		*dr;
+	t_img		*sonic_first;
+	t_img		*sonic_second;
+	t_img		*sonic_third;
+
 	t_colour	*f;
 	t_colour	*c;
 	int			width;
 	int			height;
 } t_info;
-
-
 
 typedef struct s_mlx
 {
@@ -117,6 +135,8 @@ typedef struct s_mouse
 
 typedef struct s_data {
 	char	**file;
+	double	*z_buffer;
+	t_sonic	*sonics;
 	t_info	info;
 	t_mlx	mlx;
 	t_img	map;
@@ -127,6 +147,14 @@ typedef struct s_data {
 	t_keys	keys;
 	t_mouse	mouse;
 } t_data;
+
+t_sonic	*ft_lst_new(int x, int y);
+int	ft_lst_size(t_sonic *lst);
+t_sonic	*ft_lst_last(t_sonic *lst);
+int	ft_lst_add_back(t_sonic **lst, t_sonic *new);
+int	ft_lst_add_front(t_sonic **lst, t_sonic *new);
+void	*ft_free_lists(t_sonic *node);
+void	ft_merge_sort_list(t_sonic **sonics);
 
 int		check_walls(t_data *data);
 int		map_checker(t_data *data);

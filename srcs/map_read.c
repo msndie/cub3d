@@ -6,7 +6,7 @@
 /*   By: sclam <sclam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 20:14:37 by sclam             #+#    #+#             */
-/*   Updated: 2022/05/25 16:44:03 by sclam            ###   ########.fr       */
+/*   Updated: 2022/05/27 18:40:43 by sclam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,12 +166,10 @@ void	map_to_int(t_data *data)
 		{
 			if (data->info.map[i][j] == '1')
 				data->info.int_map[i][j] = WALL;
-			else if (data->info.map[i][j] == '0' || ft_in_set(data->info.map[i][j], "NSWE"))
+			else if (ft_in_set(data->info.map[i][j], "0NSWEH"))
 				data->info.int_map[i][j] = EMPTY;
-			// else if (ft_in_set(data->info.map[i][j], "NSWE"))
-				// data->info.int_map[i][j] = PLAYER;
-			else if (data->info.map[i][j] == '2')
-				data->info.int_map[i][j] = DOOR;
+			else if (data->info.map[i][j] == '4')
+				data->info.int_map[i][j] = DOOR_CLOSED;
 			else if (data->info.map[i][j] == ' ')
 				data->info.int_map[i][j] = SPACE;
 			++j;

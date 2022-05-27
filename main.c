@@ -6,7 +6,7 @@
 /*   By: sclam <sclam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 14:43:39 by sclam             #+#    #+#             */
-/*   Updated: 2022/05/25 17:04:05 by sclam            ###   ########.fr       */
+/*   Updated: 2022/05/27 18:56:15 by sclam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,21 @@ void	render(t_data *data)
 	mlx_put_image_to_window(data->mlx.mlx, data->mlx.win, data->player.img, (data->p.x - 0.08) * MAP_TILE, (data->p.y - 0.08) * MAP_TILE);
 }
 
+void door_handle(t_data *data)
+{
+	int x;
+	int y;
+
+	if (data->info.int_map[(int)data->p.y][(int)data->p.x] == DOOR_OPENDED)
+		return;
+	x = data->p.x + data->rays.dir_x;
+	y = data->p.y + data->rays.dir_y;
+	if (data->info.int_map[y][x] == DOOR_OPENDED)
+		data->info.int_map[y][x] = (data->info.int_map[y][x] * -1) - 100;
+	else if (data->info.int_map[y][x] == DOOR_CLOSED)
+		data->info.int_map[y][x] += 100;
+}
+
 int key_pressed(int keycode, t_data *data)
 {
 	if (keycode == W)
@@ -93,6 +108,8 @@ int key_pressed(int keycode, t_data *data)
 		else
 			data->keys.tilda = 1;
 	}
+	if (keycode == SPACEBAR)
+		door_handle(data);
 	return (0);
 }
 
@@ -120,70 +137,70 @@ int key_released(int keycode, t_data *data)
 
 void rotate_camera(t_data *data)
 {
-	double	rotSpeed;
-
-	rotSpeed = 0.05;
 	if (data->keys.left)
 	{
 		double oldDirX = data->rays.dir_x;
-		data->rays.dir_x = data->rays.dir_x * cos(-rotSpeed) - data->rays.dir_y * sin(-rotSpeed);
-		data->rays.dir_y = oldDirX * sin(-rotSpeed) + data->rays.dir_y * cos(-rotSpeed);
+		data->rays.dir_x = data->rays.dir_x * cos(-ROT_SPEED) - data->rays.dir_y * sin(-ROT_SPEED);
+		data->rays.dir_y = oldDirX * sin(-ROT_SPEED) + data->rays.dir_y * cos(-ROT_SPEED);
 		double oldPlaneX = data->rays.plane_x;
-		data->rays.plane_x = data->rays.plane_x * cos(-rotSpeed) - data->rays.plane_y * sin(-rotSpeed);
-		data->rays.plane_y = oldPlaneX * sin(-rotSpeed) + data->rays.plane_y * cos(-rotSpeed);
+		data->rays.plane_x = data->rays.plane_x * cos(-ROT_SPEED) - data->rays.plane_y * sin(-ROT_SPEED);
+		data->rays.plane_y = oldPlaneX * sin(-ROT_SPEED) + data->rays.plane_y * cos(-ROT_SPEED);
 	}
 	else if (data->keys.right)
 	{
 		double oldDirX = data->rays.dir_x;
-		data->rays.dir_x = data->rays.dir_x * cos(rotSpeed) - data->rays.dir_y * sin(rotSpeed);
-		data->rays.dir_y = oldDirX * sin(rotSpeed) + data->rays.dir_y * cos(rotSpeed);
+		data->rays.dir_x = data->rays.dir_x * cos(ROT_SPEED) - data->rays.dir_y * sin(ROT_SPEED);
+		data->rays.dir_y = oldDirX * sin(ROT_SPEED) + data->rays.dir_y * cos(ROT_SPEED);
 		double oldPlaneX = data->rays.plane_x;
-		data->rays.plane_x = data->rays.plane_x * cos(rotSpeed) - data->rays.plane_y * sin(rotSpeed);
-		data->rays.plane_y = oldPlaneX * sin(rotSpeed) + data->rays.plane_y * cos(rotSpeed);
+		data->rays.plane_x = data->rays.plane_x * cos(ROT_SPEED) - data->rays.plane_y * sin(ROT_SPEED);
+		data->rays.plane_y = oldPlaneX * sin(ROT_SPEED) + data->rays.plane_y * cos(ROT_SPEED);
 	}
 }
 
 void move_camera(t_data *data)
 {
-	double	moveSpeed;
-
-	moveSpeed = 0.05;
 	if (data->keys.w)
 	{
-		if (data->info.int_map[(int)(data->p.y + data->rays.dir_y * moveSpeed)][(int)data->p.x] != 1)
-			data->p.y += data->rays.dir_y * moveSpeed;
-		if (data->info.int_map[(int)data->p.y][(int)(data->p.x + data->rays.dir_x * moveSpeed)] != 1)
-			data->p.x += data->rays.dir_x * moveSpeed;
+		if (data->info.int_map[(int)(data->p.y + data->rays.dir_y * MOVE_SPEED)][(int)data->p.x] == EMPTY
+			|| data->info.int_map[(int)(data->p.y + data->rays.dir_y * MOVE_SPEED)][(int)data->p.x] == DOOR_OPENDED)
+			data->p.y += data->rays.dir_y * MOVE_SPEED;
+		if (data->info.int_map[(int)data->p.y][(int)(data->p.x + data->rays.dir_x * MOVE_SPEED)] == EMPTY
+			|| data->info.int_map[(int)data->p.y][(int)(data->p.x + data->rays.dir_x * MOVE_SPEED)] == DOOR_OPENDED)
+			data->p.x += data->rays.dir_x * MOVE_SPEED;
 	} else if (data->keys.s)
 	{
-		if (data->info.int_map[(int)(data->p.y - data->rays.dir_y * moveSpeed)][(int)data->p.x] != 1)
-			data->p.y -= data->rays.dir_y * moveSpeed;
-		if (data->info.int_map[(int)data->p.y][(int)(data->p.x - data->rays.dir_x * moveSpeed)] != 1)
-			data->p.x -= data->rays.dir_x * moveSpeed;
+		if (data->info.int_map[(int)(data->p.y - data->rays.dir_y * MOVE_SPEED)][(int)data->p.x] == EMPTY
+			|| data->info.int_map[(int)(data->p.y - data->rays.dir_y * MOVE_SPEED)][(int)data->p.x] == DOOR_OPENDED)
+			data->p.y -= data->rays.dir_y * MOVE_SPEED;
+		if (data->info.int_map[(int)data->p.y][(int)(data->p.x - data->rays.dir_x * MOVE_SPEED)] == EMPTY
+			|| data->info.int_map[(int)data->p.y][(int)(data->p.x - data->rays.dir_x * MOVE_SPEED)] == DOOR_OPENDED)
+			data->p.x -= data->rays.dir_x * MOVE_SPEED;
 	}
 	if (data->keys.a)
 	{
-		if (data->info.int_map[(int)(data->p.y - data->rays.plane_y * moveSpeed)][(int)data->p.x] != 1)
-			data->p.y -= data->rays.plane_y * moveSpeed;
-		if (data->info.int_map[(int)data->p.y][(int)(data->p.x - data->rays.plane_x * moveSpeed)] != 1)
-			data->p.x -= data->rays.plane_x * moveSpeed;
+		if (data->info.int_map[(int)(data->p.y - data->rays.plane_y * MOVE_SPEED)][(int)data->p.x] == EMPTY
+			|| data->info.int_map[(int)(data->p.y - data->rays.plane_y * MOVE_SPEED)][(int)data->p.x] == DOOR_OPENDED)
+			data->p.y -= data->rays.plane_y * MOVE_SPEED;
+		if (data->info.int_map[(int)data->p.y][(int)(data->p.x - data->rays.plane_x * MOVE_SPEED)] == EMPTY
+			|| data->info.int_map[(int)data->p.y][(int)(data->p.x - data->rays.plane_x * MOVE_SPEED)] == DOOR_OPENDED)
+			data->p.x -= data->rays.plane_x * MOVE_SPEED;
 	}
 	if (data->keys.d)
 	{
-		if (data->info.int_map[(int)(data->p.y + data->rays.plane_y * moveSpeed)][(int)data->p.x] != 1)
-			data->p.y += data->rays.plane_y * moveSpeed;
-		if (data->info.int_map[(int)data->p.y][(int)(data->p.x + data->rays.plane_x * moveSpeed)] != 1)
-			data->p.x += data->rays.plane_x * moveSpeed;
+		if (data->info.int_map[(int)(data->p.y + data->rays.plane_y * MOVE_SPEED)][(int)data->p.x] == EMPTY
+			|| data->info.int_map[(int)(data->p.y + data->rays.plane_y * MOVE_SPEED)][(int)data->p.x] == DOOR_OPENDED)
+			data->p.y += data->rays.plane_y * MOVE_SPEED;
+		if (data->info.int_map[(int)data->p.y][(int)(data->p.x + data->rays.plane_x * MOVE_SPEED)] == EMPTY
+			|| data->info.int_map[(int)data->p.y][(int)(data->p.x + data->rays.plane_x * MOVE_SPEED)] == DOOR_OPENDED)
+			data->p.x += data->rays.plane_x * MOVE_SPEED;
 	}
 }
 
 void mouse_handle(t_data *data)
 {
-	double	rotSpeed;
 	t_mouse current;
 
 	mlx_mouse_get_pos(data->mlx.win, &current.x, &current.y);
-	rotSpeed = 0.0275;
 	if (data->mouse.y - 5 > current.y && data->rays.pitch < 900)
 		data->rays.pitch += 25;
 	else if (data->mouse.y + 5 < current.y && data->rays.pitch > -900)
@@ -191,22 +208,58 @@ void mouse_handle(t_data *data)
 	if (data->mouse.x + 5 < current.x)
 	{
 		double oldDirX = data->rays.dir_x;
-		data->rays.dir_x = data->rays.dir_x * cos(rotSpeed) - data->rays.dir_y * sin(rotSpeed);
-		data->rays.dir_y = oldDirX * sin(rotSpeed) + data->rays.dir_y * cos(rotSpeed);
+		data->rays.dir_x = data->rays.dir_x * cos(ROT_SPEED) - data->rays.dir_y * sin(ROT_SPEED);
+		data->rays.dir_y = oldDirX * sin(ROT_SPEED) + data->rays.dir_y * cos(ROT_SPEED);
 		double oldPlaneX = data->rays.plane_x;
-		data->rays.plane_x = data->rays.plane_x * cos(rotSpeed) - data->rays.plane_y * sin(rotSpeed);
-		data->rays.plane_y = oldPlaneX * sin(rotSpeed) + data->rays.plane_y * cos(rotSpeed);
+		data->rays.plane_x = data->rays.plane_x * cos(ROT_SPEED) - data->rays.plane_y * sin(ROT_SPEED);
+		data->rays.plane_y = oldPlaneX * sin(ROT_SPEED) + data->rays.plane_y * cos(ROT_SPEED);
 	}
 	else if (data->mouse.x - 5 > current.x)
 	{
 		double oldDirX = data->rays.dir_x;
-		data->rays.dir_x = data->rays.dir_x * cos(-rotSpeed) - data->rays.dir_y * sin(-rotSpeed);
-		data->rays.dir_y = oldDirX * sin(-rotSpeed) + data->rays.dir_y * cos(-rotSpeed);
+		data->rays.dir_x = data->rays.dir_x * cos(-ROT_SPEED) - data->rays.dir_y * sin(-ROT_SPEED);
+		data->rays.dir_y = oldDirX * sin(-ROT_SPEED) + data->rays.dir_y * cos(-ROT_SPEED);
 		double oldPlaneX = data->rays.plane_x;
-		data->rays.plane_x = data->rays.plane_x * cos(-rotSpeed) - data->rays.plane_y * sin(-rotSpeed);
-		data->rays.plane_y = oldPlaneX * sin(-rotSpeed) + data->rays.plane_y * cos(-rotSpeed);
+		data->rays.plane_x = data->rays.plane_x * cos(-ROT_SPEED) - data->rays.plane_y * sin(-ROT_SPEED);
+		data->rays.plane_y = oldPlaneX * sin(-ROT_SPEED) + data->rays.plane_y * cos(-ROT_SPEED);
 	}
 	mlx_mouse_move(data->mlx.win, WIDTH / 2, HEIGHT / 2);
+}
+
+void door_counter(t_data *data)
+{
+	for (int i = 0; i < data->info.height; i++)
+	{
+		for (int j = 0; j < data->info.width; j++)
+		{
+			if (data->info.int_map[i][j] > DOOR_CLOSED)
+			{
+				if (data->info.int_map[i][j] == DOOR_CLOSED + 1)
+					data->info.int_map[i][j] = DOOR_OPENDED;
+				else
+					data->info.int_map[i][j] -= 1;
+			} else if (data->info.int_map[i][j] < DOOR_OPENDED * -1)
+			{
+				if (data->info.int_map[i][j] == DOOR_OPENDED * -1 - 1)
+					data->info.int_map[i][j] = DOOR_CLOSED;
+				else
+					data->info.int_map[i][j] += 1;
+			}
+		}
+	}
+}
+
+void	calc_dist(t_data *data)
+{
+	t_sonic	*tmp;
+
+	tmp = data->sonics;
+	while (tmp)
+	{
+		tmp->dist = (data->p.x - tmp->x) * (data->p.x - tmp->x) + (data->p.y - tmp->y) * (data->p.y - tmp->y);
+		tmp = tmp->next;
+	}
+	ft_merge_sort_list(&data->sonics);
 }
 
 int	loop_hook(t_data *data)
@@ -278,12 +331,68 @@ int	loop_hook(t_data *data)
 			}
 			if(data->info.int_map[mapY][mapX] == WALL)
 				hit = 1;
-			if (data->info.int_map[mapY][mapX] == DOOR)
-				hit = 2;
+			double doorX;
+			double wallyoffset;
+			if (data->info.int_map[mapY][mapX] >= DOOR_CLOSED)
+			{
+				if (side == 1)
+				{
+					wallyoffset = 0.5 * stepY;
+					perpWallDist = (mapY - data->p.y + wallyoffset + (1 - stepY) / 2) / rayDirY;
+					doorX = data->p.x + perpWallDist * rayDirX;
+					doorX -= floor(doorX);
+					if (sideDistY - (deltaDistY / 2) < sideDistX)
+					{
+						if (data->info.int_map[mapY][mapX] == DOOR_CLOSED)
+							hit = 2;
+						else if (doorX <= ((double)(data->info.int_map[mapY][mapX] - DOOR_CLOSED) / 100))
+							hit = 2;
+					}
+				} else {
+					wallyoffset = 0.5 * stepX;
+					perpWallDist = (mapX - data->p.x + wallyoffset + (1 - stepX) / 2) / rayDirX;
+					doorX = data->p.y + perpWallDist * rayDirY;
+					doorX -= floor(doorX);
+					if (sideDistX - (deltaDistX / 2) < sideDistY)
+					{
+						if (data->info.int_map[mapY][mapX] == DOOR_CLOSED)
+							hit = 2;
+						else if (doorX <= ((double)(data->info.int_map[mapY][mapX] - DOOR_CLOSED) / 100))
+							hit = 2;
+					}
+				}
+			}
+			else if (data->info.int_map[mapY][mapX] < DOOR_OPENDED * -1)
+			{
+				if (side == 1)
+				{
+					wallyoffset = 0.5 * stepY;
+					perpWallDist = (mapY - data->p.y + wallyoffset + (1 - stepY) / 2) / rayDirY;
+					doorX = data->p.x + perpWallDist * rayDirX;
+					doorX -= floor(doorX);
+					doorX = 1 - doorX;
+					if (sideDistY - (deltaDistY / 2) < sideDistX)
+					{
+						if (doorX > ((double)(data->info.int_map[mapY][mapX] * -1 - DOOR_OPENDED) / 100))
+							hit = 2;
+					}
+				} else {
+					wallyoffset = 0.5 * stepX;
+					perpWallDist = (mapX - data->p.x + wallyoffset + (1 - stepX) / 2) / rayDirX;
+					doorX = data->p.y + perpWallDist * rayDirY;
+					doorX -= floor(doorX);
+					doorX = 1 - doorX;
+					if (sideDistX - (deltaDistX / 2) < sideDistY)
+					{
+						if (doorX > ((double)(data->info.int_map[mapY][mapX] * -1 - DOOR_OPENDED) / 100))
+							hit = 2;
+					}
+				}
+			}
 		}
-		if(side == 0)
+		if(side == 0 && hit == 1)
 			perpWallDist = (sideDistX - deltaDistX);
-		else
+		else if (side == 1 && hit == 1)
 			perpWallDist = (sideDistY - deltaDistY);
 		int lineHeight = (int)(HEIGHT / perpWallDist);
 		int drawStart = -lineHeight / 2 + HEIGHT / 2 + data->rays.pitch;
@@ -299,14 +408,41 @@ int	loop_hook(t_data *data)
 			wallX = data->p.x + perpWallDist * rayDirX;
 		wallX -= floor((wallX));
 		int texX = (int)(wallX * (double)TEX);
-		// 
-		// if(side == 0 && rayDirX > 0)
-		// 	texX = TEX - texX - 1;
-		// if(side == 1 && rayDirY < 0)
-		// 	texX = TEX - texX - 1;
-		// 
+		if(side == 0 && rayDirX > 0)
+			texX = TEX - texX - 1;
+		if(side == 1 && rayDirY < 0)
+			texX = TEX - texX - 1;
 		double step = 1.0 * TEX / lineHeight;
 		double texPos = (drawStart - data->rays.pitch - HEIGHT / 2 + lineHeight / 2) * step;
+		if (hit == 2 && (data->info.int_map[mapY][mapX] > DOOR_CLOSED || data->info.int_map[mapY][mapX] < DOOR_OPENDED * -1))
+		{
+			if (data->info.int_map[mapY][mapX] > DOOR_CLOSED)
+			{
+				if (side == 1 && rayDirY < 0)
+					texX += ((double)(data->info.int_map[mapY][mapX] - DOOR_CLOSED) / 100 * TEX);
+				else if (side == 0 && rayDirX < 0)
+					texX -= ((double)(data->info.int_map[mapY][mapX] - DOOR_CLOSED) / 100 * TEX);
+				else if (side == 1 && rayDirY >= 0)
+					texX -= ((double)(data->info.int_map[mapY][mapX] - DOOR_CLOSED) / 100 * TEX);
+				else if (side == 0 && rayDirX >= 0)
+					texX += ((double)(data->info.int_map[mapY][mapX] - DOOR_CLOSED) / 100 * TEX);
+			}
+			else
+			{
+				if (side == 1 && rayDirY < 0)
+					texX -= ((double)(data->info.int_map[mapY][mapX] * -1 - DOOR_OPENDED) / 100 * TEX);
+				else if (side == 0 && rayDirX < 0)
+					texX += ((double)(data->info.int_map[mapY][mapX] * -1 - DOOR_OPENDED) / 100 * TEX);
+				else if (side == 1 && rayDirY >= 0)
+					texX += ((double)(data->info.int_map[mapY][mapX] * -1 - DOOR_OPENDED) / 100 * TEX);
+				else if (side == 0 && rayDirX >= 0)
+					texX -= ((double)(data->info.int_map[mapY][mapX] * -1 - DOOR_OPENDED) / 100 * TEX);
+			}
+			if (texX > TEX)
+				texX -= (int)(texX / TEX) * TEX;
+			else if (texX < 0)
+				texX += (int)(abs(texX) / TEX) * TEX;
+		}
 		for(int y = drawStart; y < drawEnd; y++)
 		{
 			int texY = (int)texPos & (TEX - 1);
@@ -326,7 +462,72 @@ int	loop_hook(t_data *data)
 				color = (color >> 1) & 8355711;
 			my_mlx_pixel_put(&data->img, x, y, color);
 		}
+
+		data->z_buffer[x] = perpWallDist;
+
 	}
+
+	calc_dist(data);
+	t_sonic	*tmp = data->sonics;
+	while (tmp)
+	{
+		double spriteX = tmp->x - data->p.x;
+		double spriteY = tmp->y - data->p.y;
+		double invDet = 1.0 / (data->rays.plane_x * data->rays.dir_y - data->rays.dir_x * data->rays.plane_y);
+		double transformX = invDet * (data->rays.dir_y * spriteX - data->rays.dir_x * spriteY);
+		double transformY = invDet * (-data->rays.plane_y * spriteX + data->rays.plane_x * spriteY);
+		int spriteScreenX = (int)((WIDTH / 2) * (1 + transformX / transformY));
+		int spriteHeight = abs((int)(HEIGHT / (transformY)));
+		int drawStartY = -spriteHeight / 2 + HEIGHT / 2 + data->rays.pitch;
+		if (drawStartY < 0)
+			drawStartY = 0;
+		int drawEndY = spriteHeight / 2 + HEIGHT / 2 + data->rays.pitch;
+		if (drawEndY >= HEIGHT)
+			drawEndY = HEIGHT - 1;
+		int spriteWidth = abs( (int) (HEIGHT / (transformY)));
+		int drawStartX = -spriteWidth / 2 + spriteScreenX;
+		if (drawStartX < 0)
+			drawStartX = 0;
+		int drawEndX = spriteWidth / 2 + spriteScreenX;
+		if (drawEndX >= WIDTH)
+			drawEndX = WIDTH - 1;
+		for(int stripe = drawStartX; stripe < drawEndX; stripe++)
+		{
+			int texX = (int)(256 * (stripe - (-spriteWidth / 2 + spriteScreenX)) * TEX / spriteWidth) / 256;
+			//the conditions in the if are:
+			//1) it's in front of camera plane so you don't see things behind you
+			//2) it's on the screen (left)
+			//3) it's on the screen (right)
+			//4) ZBuffer, with perpendicular distance
+			if(transformY > 0 && stripe > 0 && stripe < WIDTH && transformY < data->z_buffer[stripe])
+			{
+				for(int y = drawStartY; y < drawEndY; y++) //for every pixel of the current stripe
+				{
+					int d = (y) * 256 - HEIGHT * 128 + spriteHeight * 128; //256 and 128 factors to avoid floats
+					int texY = ((d * TEX) / spriteHeight) / 256;
+					int color;
+					if (tmp->stage > 40)
+						color = get_tex_colour(tmp->sonic_first, texX, texY);
+					else if (tmp->stage > 30)
+						color = get_tex_colour(tmp->sonic_second, texX, texY);
+					else if (tmp->stage > 20)
+						color = get_tex_colour(tmp->sonic_third, texX, texY);
+					else if (tmp->stage > 10)
+						color = get_tex_colour(tmp->sonic_second, texX, texY);
+					else
+						color = get_tex_colour(tmp->sonic_third, texX, texY);
+					if ((color & 0x00FFFFFF) != 0)
+						my_mlx_pixel_put(&data->img, stripe, y, color);
+				}
+			}
+		}
+		--tmp->stage;
+		if (tmp->stage == 0)
+			tmp->stage = 50;
+		tmp = tmp->next;
+	}
+
+	door_counter(data);
 	render(data);
 	return (0);
 }
@@ -347,7 +548,6 @@ int main(int argc, char **argv)
 	data.mlx.mlx = mlx_init();
 	data.mlx.win = mlx_new_window(data.mlx.mlx, WIDTH, HEIGHT, "cube3d");
 	init_map(argv[1], &data);
-	// printf("Check\n");
 	if (check_walls(&data))
 	{
 		free_all(&data);
@@ -368,6 +568,12 @@ int main(int argc, char **argv)
 	data.keys.right = 0;
 	data.keys.tilda = 1;
 	data.rays.pitch = 0;
+	data.z_buffer = (double*)malloc(sizeof(double) * WIDTH);
+	if (!data.z_buffer)
+	{
+		free_all(&data);
+		exit(EXIT_FAILURE);
+	}
 	mlx_hook(data.mlx.win, 17, 0, ft_close, &data);
 	// mlx_hook(data.mlx.win, 2, 1L << 0, ft_key_hook, &data);
 	// mlx_hook(data.mlx.win, 6, 1L << 0, mouse_handle, &data);

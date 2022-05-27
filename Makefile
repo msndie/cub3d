@@ -6,17 +6,18 @@
 #    By: sclam <sclam@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/23 22:03:23 by sclam             #+#    #+#              #
-#    Updated: 2022/05/25 17:21:43 by sclam            ###   ########.fr        #
+#    Updated: 2022/05/27 19:14:02 by sclam            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME	=	cube3d
+NAME	=	cub3D
 
 SRCS	=	main.c \
 			srcs/map_check.c \
 			srcs/map_read.c \
 			srcs/utils.c \
 			srcs/draw.c \
+			srcs/list.c
 
 CC		=	gcc
 

@@ -6,7 +6,7 @@
 /*   By: sclam <sclam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 20:14:45 by sclam             #+#    #+#             */
-/*   Updated: 2022/05/25 16:33:24 by sclam            ###   ########.fr       */
+/*   Updated: 2022/05/27 18:42:17 by sclam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,12 @@ static int	type_id(t_data *data, char *str)
 		data->info.ea = asset(data, strs[1]);
 	else if (!ft_strncmp("DR", strs[0], 3) && !data->info.dr)
 		data->info.dr = asset(data, strs[1]);
+	else if (!ft_strncmp("H1", strs[0], 3) && !data->info.sonic_first)
+		data->info.sonic_first = asset(data, strs[1]);
+	else if (!ft_strncmp("H2", strs[0], 3) && !data->info.sonic_second)
+		data->info.sonic_second = asset(data, strs[1]);
+	else if (!ft_strncmp("H3", strs[0], 3) && !data->info.sonic_third)
+		data->info.sonic_third = asset(data, strs[1]);
 	else if (!ft_strncmp("F", strs[0], 2) && !data->info.f)
 		parse_colour(strs[1], 'f', data);
 	else if (!ft_strncmp("C", strs[0], 2) && !data->info.c)
@@ -169,11 +175,11 @@ static int	check_up_down(t_data *data, int i, int j)
 		down = -1;
 	else
 		down = i + 1;
-	if (p[i][j] == ' ' && (up != -1 && ft_in_set(p[up][j], "02NSWE")))
+	if (p[i][j] == ' ' && (up != -1 && ft_in_set(p[up][j], "40NSWEH")))
 		return (1);
-	if (p[i][j] == ' ' && (down != -1 && ft_in_set(p[down][j], "20NSWE")))
+	if (p[i][j] == ' ' && (down != -1 && ft_in_set(p[down][j], "40NSWEH")))
 		return (1);
-	if (ft_in_set(p[i][j], "20NSWE") && (up == -1 || down == -1))
+	if (ft_in_set(p[i][j], "40NSWEH") && (up == -1 || down == -1))
 		return (1);
 	return (0);
 }
@@ -193,11 +199,11 @@ static int	check_left_right(t_data *data, int i, int j)
 		right = -1;
 	else
 		right = j + 1;
-	if (p[i][j] == ' ' && (left != -1 && ft_in_set(p[i][left], "20NSWE")))
+	if (p[i][j] == ' ' && (left != -1 && ft_in_set(p[i][left], "40NSWEH")))
 		return (1);
-	if (p[i][j] == ' ' && (right != -1 && ft_in_set(p[i][right], "02NSWE")))
+	if (p[i][j] == ' ' && (right != -1 && ft_in_set(p[i][right], "40NSWEH")))
 		return (1);
-	if (ft_in_set(p[i][j], "0NSWE") && (left == -1 || right == -1))
+	if (ft_in_set(p[i][j], "40NSWEH") && (left == -1 || right == -1))
 		return (1);
 	return (0);
 }
@@ -214,8 +220,25 @@ int	check_walls(t_data *data)
 		while (j < ft_strlen(data->info.map[i]))
 		{
 			if (check_left_right(data, i, j) || check_up_down(data, i, j)
-				|| !ft_in_set(data->info.map[i][j], " 120NSWE"))
+				|| !ft_in_set(data->info.map[i][j], " 140NSWEH")
+				|| (data->info.map[i][j] == 'H' && (data->info.sonic_first == NULL || data->info.sonic_second == NULL || data->info.sonic_third == NULL)))
 				return (1);
+
+			
+			if (data->info.map[i][j] == 'H')
+			{
+				if (ft_lst_add_back(&data->sonics, ft_lst_new(j, i)))
+					return (1);
+				ft_lst_last(data->sonics)->sonic_first = data->info.sonic_first;
+				ft_lst_last(data->sonics)->sonic_second = data->info.sonic_second;
+				ft_lst_last(data->sonics)->sonic_third = data->info.sonic_third;
+				if (j % 2)
+					ft_lst_last(data->sonics)->stage = 50;
+				else
+					ft_lst_last(data->sonics)->stage = 25;
+			}
+
+			
 			++j;
 		}
 		++i;
