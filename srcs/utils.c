@@ -6,7 +6,7 @@
 /*   By: sclam <sclam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 20:15:16 by sclam             #+#    #+#             */
-/*   Updated: 2022/05/27 16:38:30 by sclam            ###   ########.fr       */
+/*   Updated: 2022/05/28 19:29:03 by sclam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,10 @@ void	free_all(t_data *data)
 		ft_free_arr((void **)data->info.int_map);
 	if (data->mlx.mlx)
 		mlx_destroy_window(data->mlx.mlx, data->mlx.win);
-	if (data->sonics)
-		ft_free_lists(data->sonics);
+	if (data->anims)
+		ft_free_lists(data->anims);
+	if (data->dda)
+		free(data->dda);
 }
 
 int	ft_in_set(char c, char const *set)
@@ -92,7 +94,8 @@ void	null_init(t_data *data)
 	data->mlx.mlx = NULL;
 	data->info.dr = NULL;
 	data->z_buffer = NULL;
-	data->info.sonic_first = NULL;
-	data->info.sonic_second = NULL;
-	data->info.sonic_third = NULL;
+	data->info.anim_first = NULL;
+	data->info.anim_second = NULL;
+	data->info.anim_third = NULL;
+	data->dda = NULL;
 }

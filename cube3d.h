@@ -6,7 +6,7 @@
 /*   By: sclam <sclam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 14:48:12 by sclam             #+#    #+#             */
-/*   Updated: 2022/05/27 18:01:54 by sclam            ###   ########.fr       */
+/*   Updated: 2022/05/28 20:03:03 by sclam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@
 #define WIDTH 1860
 #define HEIGHT 1024
 #define TEX 64
-#define MOVE_SPEED 0.08
+#define MV_SPEED 0.08
 #define ROT_SPEED 0.05
 
 typedef struct s_point
@@ -61,24 +61,24 @@ typedef struct s_img
 {
 	void	*img;
 	char	*addr;
-	int		bits_per_pixel;
+	int		bits;
 	int		line_length;
 	int		endian;
 	int		h;
 	int		w;
 } t_img;
 
-typedef struct s_sonic
+typedef struct s_anim
 {
 	double			x;
 	double			y;
 	double			dist;
-	t_img			*sonic_first;
-	t_img			*sonic_second;
-	t_img			*sonic_third;
+	t_img			*anim_first;
+	t_img			*anim_second;
+	t_img			*anim_third;
 	short			stage;
-	struct s_sonic	*next;
-} t_sonic;
+	struct s_anim	*next;
+} t_anim;
 
 typedef struct s_info
 {
@@ -90,9 +90,9 @@ typedef struct s_info
 	t_img		*ea;
 
 	t_img		*dr;
-	t_img		*sonic_first;
-	t_img		*sonic_second;
-	t_img		*sonic_third;
+	t_img		*anim_first;
+	t_img		*anim_second;
+	t_img		*anim_third;
 
 	t_colour	*f;
 	t_colour	*c;
@@ -132,11 +132,38 @@ typedef struct s_mouse
 	int y;
 } t_mouse;
 
+typedef struct s_dda
+{
+	double	camerax;
+	double	raydirx;
+	double	raydiry;
+	double	sidedistx;
+	double	sidedisty;
+	double	deltadistx;
+	double	deltadisty;
+	double	perpwalldist;
+	double	doorx;
+	double	wallyoffset;
+	double	wallx;
+	double	step;
+	double	texpos;
+	int		texx;
+	int		lineheight;
+	int		drawstart;
+	int		drawend;
+	int		mapx;
+	int		mapy;
+	int		stepx;
+	int		stepy;
+	int		hit;
+	int		side;
+}	t_dda;
 
 typedef struct s_data {
 	char	**file;
 	double	*z_buffer;
-	t_sonic	*sonics;
+	t_anim	*anims;
+	t_dda	*dda;
 	t_info	info;
 	t_mlx	mlx;
 	t_img	map;
@@ -148,13 +175,13 @@ typedef struct s_data {
 	t_mouse	mouse;
 } t_data;
 
-t_sonic	*ft_lst_new(int x, int y);
-int	ft_lst_size(t_sonic *lst);
-t_sonic	*ft_lst_last(t_sonic *lst);
-int	ft_lst_add_back(t_sonic **lst, t_sonic *new);
-int	ft_lst_add_front(t_sonic **lst, t_sonic *new);
-void	*ft_free_lists(t_sonic *node);
-void	ft_merge_sort_list(t_sonic **sonics);
+t_anim	*ft_lst_new(int x, int y);
+int	ft_lst_size(t_anim *lst);
+t_anim	*ft_lst_last(t_anim *lst);
+int	ft_lst_add_back(t_anim **lst, t_anim *new);
+int	ft_lst_add_front(t_anim **lst, t_anim *new);
+void	*ft_free_lists(t_anim *node);
+void	ft_merge_sort_list(t_anim **sonics);
 
 int		check_walls(t_data *data);
 int		map_checker(t_data *data);

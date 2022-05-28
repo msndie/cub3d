@@ -6,17 +6,17 @@
 /*   By: sclam <sclam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 16:19:02 by sclam             #+#    #+#             */
-/*   Updated: 2022/05/27 16:53:41 by sclam            ###   ########.fr       */
+/*   Updated: 2022/05/28 13:55:40 by sclam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cube3d.h"
 
-t_sonic	*ft_lst_new(int x, int y)
+t_anim	*ft_lst_new(int x, int y)
 {
-	t_sonic	*tmp;
+	t_anim	*tmp;
 
-	tmp = malloc(sizeof(t_sonic));
+	tmp = malloc(sizeof(t_anim));
 	if (tmp == NULL)
 		return (0);
 	tmp->next = NULL;
@@ -25,10 +25,10 @@ t_sonic	*ft_lst_new(int x, int y)
 	return (tmp);
 }
 
-int	ft_lst_size(t_sonic *lst)
+int	ft_lst_size(t_anim *lst)
 {
 	int		i;
-	t_sonic	*tmp;
+	t_anim	*tmp;
 
 	i = 0;
 	tmp = lst;
@@ -40,9 +40,9 @@ int	ft_lst_size(t_sonic *lst)
 	return (i);
 }
 
-t_sonic	*ft_lst_last(t_sonic *lst)
+t_anim	*ft_lst_last(t_anim *lst)
 {
-	t_sonic	*tmp;
+	t_anim	*tmp;
 
 	tmp = lst;
 	while (lst && tmp->next != NULL)
@@ -50,9 +50,9 @@ t_sonic	*ft_lst_last(t_sonic *lst)
 	return (tmp);
 }
 
-int	ft_lst_add_back(t_sonic **lst, t_sonic *new)
+int	ft_lst_add_back(t_anim **lst, t_anim *new)
 {
-	t_sonic	*tmp;
+	t_anim	*tmp;
 
 	if (!new)
 		return (-1);
@@ -69,7 +69,7 @@ int	ft_lst_add_back(t_sonic **lst, t_sonic *new)
 	return (0);
 }
 
-int	ft_lst_add_front(t_sonic **lst, t_sonic *new)
+int	ft_lst_add_front(t_anim **lst, t_anim *new)
 {
 	if (!new)
 		return (-1);
@@ -78,9 +78,9 @@ int	ft_lst_add_front(t_sonic **lst, t_sonic *new)
 	return (0);
 }
 
-void	*ft_free_lists(t_sonic *node)
+void	*ft_free_lists(t_anim *node)
 {
-	t_sonic	*tmp;
+	t_anim	*tmp;
 
 	while (node)
 	{
@@ -92,9 +92,9 @@ void	*ft_free_lists(t_sonic *node)
 	return (NULL);
 }
 
-static void	ft_left_right(t_sonic **left, t_sonic **right, t_sonic *sonics)
+static void	ft_left_right(t_anim **left, t_anim **right, t_anim *sonics)
 {
-	t_sonic	*tmp;
+	t_anim	*tmp;
 
 	tmp = sonics;
 	while (tmp->next && tmp->next->next)
@@ -104,9 +104,9 @@ static void	ft_left_right(t_sonic **left, t_sonic **right, t_sonic *sonics)
 	tmp->next = NULL;
 }
 
-static t_sonic	*ft_sorted_merge(t_sonic *left, t_sonic *right)
+static t_anim	*ft_sorted_merge(t_anim *left, t_anim *right)
 {
-	t_sonic	*res;
+	t_anim	*res;
 
 	if (!left)
 		return (right);
@@ -125,11 +125,11 @@ static t_sonic	*ft_sorted_merge(t_sonic *left, t_sonic *right)
 	return (res);
 }
 
-void	ft_merge_sort_list(t_sonic **sonics)
+void	ft_merge_sort_list(t_anim **sonics)
 {
-	t_sonic	*tmp;
-	t_sonic	*left;
-	t_sonic	*right;
+	t_anim	*tmp;
+	t_anim	*left;
+	t_anim	*right;
 
 	tmp = *(sonics);
 	if (!tmp || !tmp->next)
