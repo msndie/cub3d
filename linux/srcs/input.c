@@ -6,7 +6,7 @@
 /*   By: sclam <sclam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/29 18:34:17 by sclam             #+#    #+#             */
-/*   Updated: 2022/05/29 18:39:37 by sclam            ###   ########.fr       */
+/*   Updated: 2022/05/30 02:13:56 by sclam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 int	key_pressed(int keycode, t_data *data)
 {
+	printf("%d\n", keycode);
 	if (keycode == W)
 		data->keys.w = 1;
 	else if (keycode == S)
