@@ -6,11 +6,11 @@
 /*   By: sclam <sclam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 20:14:37 by sclam             #+#    #+#             */
-/*   Updated: 2022/05/27 18:40:43 by sclam            ###   ########.fr       */
+/*   Updated: 2022/05/29 18:29:20 by sclam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cube3d.h"
+#include "../cub3d.h"
 
 int	parse_colour(char *str, char flag, t_data *data)
 {

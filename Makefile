@@ -6,7 +6,7 @@
 #    By: sclam <sclam@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/23 22:03:23 by sclam             #+#    #+#              #
-#    Updated: 2022/05/28 20:47:40 by sclam            ###   ########.fr        #
+#    Updated: 2022/05/29 19:03:37 by sclam            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,15 @@ SRCS	=	main.c \
 			srcs/map_read.c \
 			srcs/utils.c \
 			srcs/draw.c \
-			srcs/list.c
+			srcs/list.c \
+			srcs/doors.c \
+			srcs/draw_utils.c \
+			srcs/input.c \
+			srcs/mouse.c \
+			srcs/movement.c \
+			srcs/raycast.c \
+			srcs/sort_list.c \
+			srcs/sprites.c 
 
 CC		=	gcc
 
@@ -29,7 +37,7 @@ MLX_H	=	-Imlx
 
 LIBFT	=	/libft/libft.a
 
-HEAD	= 	cube3d.h
+HEAD	= 	cub3d.h
 
 OBJS	=	${SRCS:.c=.o}
 
@@ -51,7 +59,7 @@ clean :
 
 fclean : clean
 	rm -rf $(NAME)
-	@make fclean -C ./libft
+	make fclean -C ./libft
 	@make clean -C ./mlx
 
 re : fclean all
