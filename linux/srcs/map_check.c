@@ -6,16 +6,16 @@
 /*   By: sclam <sclam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 20:14:45 by sclam             #+#    #+#             */
-/*   Updated: 2022/05/29 18:29:18 by sclam            ###   ########.fr       */
+/*   Updated: 2022/05/29 23:57:40 by sclam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-static int	is_full_info(t_info info)
+static int	is_full_info(t_info *info)
 {
-	if (info.c && info.ea && info.f && info.no && info.so && info.we && info.dr
-		&& info.anim_first && info.anim_second && info.anim_third)
+	if (info->c && info->ea && info->f && info->no && info->so && info->we && info->dr
+		&& info->anim_first && info->anim_second && info->anim_third)
 		return 1;
 	return 0;
 }
@@ -134,7 +134,7 @@ int	map_checker(t_data *data)
 		{
 			if (check_line(data->file[i]))
 				return (error("Map"));
-			if (is_full_info(data->info))
+			if (is_full_info(&data->info))
 				break;
 			if (data->file[i][ft_strlen(data->file[i]) - 1] == '\n')
 				data->file[i][ft_strlen(data->file[i]) - 1] = '\0';
