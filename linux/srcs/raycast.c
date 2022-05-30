@@ -6,7 +6,7 @@
 /*   By: sclam <sclam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/29 18:40:07 by sclam             #+#    #+#             */
-/*   Updated: 2022/05/30 13:04:33 by sclam            ###   ########.fr       */
+/*   Updated: 2022/05/30 19:55:25 by sclam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,24 @@ static void	get_side(t_dda *dda)
 	}
 }
 
+static void	check_doorway(t_data *data, t_dda *dda)
+{
+	int	value;
+
+	if (dda->side == 1 && dda->hit == 1)
+	{
+		value = data->info.int_map[dda->mapy - dda->stepy][dda->mapx];
+		if (value == 3 || value > DOOR_CLOSED || value < DOOR_OPENDED * -1)
+			dda->hit = 3;
+	}
+	if (dda->side == 0 && dda->hit == 1)
+	{
+		value = data->info.int_map[dda->mapy][dda->mapx - dda->stepx];
+		if (value == 3 || value > DOOR_CLOSED || value < DOOR_OPENDED * -1)
+			dda->hit = 3;
+	}
+}
+
 static void	perform_dda(t_data *data, t_dda *dda)
 {
 	int	value;
@@ -63,6 +81,7 @@ static void	perform_dda(t_data *data, t_dda *dda)
 	dda->hit = 0;
 	while (dda->hit == 0)
 	{
+		dda->walloffset = 0;
 		get_side(dda);
 		value = data->info.int_map[dda->mapy][dda->mapx];
 		if (value == WALL)
@@ -73,15 +92,20 @@ static void	perform_dda(t_data *data, t_dda *dda)
 			closing_door(dda, &data->p, value);
 		else if (value < DOOR_OPENDED * -1)
 			opening_door(dda, &data->p, value);
+		else if (value == DOOR_OPENDED)
+			opened_door(dda, &data->p);
+		check_doorway(data, dda);
 	}
 }
 
 static void	calc_draw_end_start(t_dda *dda, int pitch, t_point *p)
 {
-	if (dda->side == 0 && dda->hit == 1)
-		dda->perpwalldist = (dda->sidedistx - dda->deltadistx);
-	else if (dda->side == 1 && dda->hit == 1)
-		dda->perpwalldist = (dda->sidedisty - dda->deltadisty);
+	if (dda->side == 0 && dda->hit != 2)
+		dda->perpwalldist = (dda->mapx - p->x + dda->walloffset
+				+ (1 - dda->stepx) / 2) / dda->raydirx;
+	else if (dda->side == 1 && dda->hit != 2)
+		dda->perpwalldist = (dda->mapy - p->y + dda->walloffset
+				+ (1 - dda->stepy) / 2) / dda->raydiry;
 	dda->lineheight = (int)(HEIGHT / dda->perpwalldist);
 	dda->drawstart = -dda->lineheight / 2 + HEIGHT / 2 + pitch;
 	if (dda->drawstart < 0)
@@ -103,11 +127,11 @@ static void	texture_pos(t_dda *dda, int pitch, int value)
 		dda->texx = TEX - dda->texx - 1;
 	if (dda->side == 1 && dda->raydiry < 0)
 		dda->texx = TEX - dda->texx - 1;
-	if (dda->hit == 2 && (value > DOOR_CLOSED || value < DOOR_OPENDED * -1))
-		door_tex_correction(dda, value);
 	dda->step = 1.0 * TEX / dda->lineheight;
 	dda->texpos = (dda->drawstart - pitch - HEIGHT / 2 + dda->lineheight / 2)
 		* dda->step;
+	if (dda->hit == 2 && (value > DOOR_CLOSED || value < DOOR_OPENDED * -1))
+		door_tex_correction(dda, value);
 }
 
 void	main_raycast_loop(t_dda *dda, t_data *data)

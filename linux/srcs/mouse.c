@@ -6,7 +6,7 @@
 /*   By: sclam <sclam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/29 18:38:58 by sclam             #+#    #+#             */
-/*   Updated: 2022/05/29 22:45:29 by sclam            ###   ########.fr       */
+/*   Updated: 2022/05/29 18:57:49 by sclam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,11 @@ void	mouse_handle(t_data *data)
 {
 	t_mouse	current;
 
-	mlx_mouse_get_pos(data->mlx.mlx, data->mlx.win, &current.x, &current.y);
+	mlx_mouse_get_pos(data->mlx.win, &current.x, &current.y);
 	if (data->mouse.y - 5 > current.y && data->rays.pitch < 900)
 		data->rays.pitch += 25;
 	else if (data->mouse.y + 5 < current.y && data->rays.pitch > -900)
 		data->rays.pitch -= 25;
 	horiz_mouse(data, &current);
-	mlx_mouse_move(data->mlx.mlx, data->mlx.win, WIDTH / 2, HEIGHT / 2);
+	mlx_mouse_move(data->mlx.win, WIDTH / 2, HEIGHT / 2);
 }

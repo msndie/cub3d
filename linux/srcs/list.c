@@ -6,7 +6,7 @@
 /*   By: sclam <sclam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 16:19:02 by sclam             #+#    #+#             */
-/*   Updated: 2022/05/30 12:39:10 by sclam            ###   ########.fr       */
+/*   Updated: 2022/05/29 22:51:12 by sclam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ t_anim	*ft_lst_new(int x, int y)
 {
 	t_anim	*tmp;
 
-	tmp = (t_anim *)malloc(sizeof(t_anim));
+	tmp = malloc(sizeof(t_anim));
 	if (tmp == NULL)
-		return (NULL);
+		return (0);
 	tmp->next = NULL;
 	tmp->x = x + 0.5;
 	tmp->y = y + 0.5;
@@ -41,7 +41,6 @@ int	ft_lst_add_back(t_anim **lst, t_anim *new)
 
 	if (!new)
 		return (-1);
-	// printf("test\n");
 	if (!*lst)
 	{
 		*lst = new;
@@ -75,19 +74,12 @@ int	sprites_create(t_data *data)
 	size_t	j;
 	t_anim	*tmp;
 
-	// for (int i = 0; i < ft_char_arr_len(data->info.map); i++) {
-	// 	for (int j = 0; j < ft_strlen(data->info.map[i]); j++) {
-	// 		printf("%c", data->info.map[i][j]);
-	// 	}
-	// 	printf("\n");
-	// }
 	i = -1;
 	while (++i < ft_char_arr_len(data->info.map))
 	{
 		j = -1;
 		while (++j < ft_strlen(data->info.map[i]))
 		{
-			// printf("%c\n", data->info.map[i][j]);
 			if (data->info.map[i][j] == 'H')
 			{
 				if (ft_lst_add_back(&data->anims, ft_lst_new(j, i)))
@@ -99,7 +91,6 @@ int	sprites_create(t_data *data)
 				ft_lst_last(data->anims)->stage = 150;
 			}	
 		}
-		// printf("-------\n");
 	}
 	return (0);
 }

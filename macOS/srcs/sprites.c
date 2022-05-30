@@ -6,7 +6,7 @@
 /*   By: sclam <sclam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/29 18:28:12 by sclam             #+#    #+#             */
-/*   Updated: 2022/05/29 19:01:47 by sclam            ###   ########.fr       */
+/*   Updated: 2022/05/30 19:42:42 by sclam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static void	sprites_start_end(t_data *data, t_sprites *spr)
 		spr->draw_end_x = WIDTH - 1;
 }
 
-static void	sprites_draw_y_loop(t_data *data, t_sprites *spr, t_anim *tmp, int x)
+static void	sprites_y_loop(t_data *data, t_sprites *spr, t_anim *tmp, int x)
 {
 	int	y;
 	int	color;
@@ -80,7 +80,7 @@ static void	sprites_draw_y_loop(t_data *data, t_sprites *spr, t_anim *tmp, int x
 	}
 }
 
-static void	sprites_draw_x_loop(t_data *data, t_sprites *spr, t_anim *tmp)
+static void	sprites_x_loop(t_data *data, t_sprites *spr, t_anim *tmp)
 {
 	int	x;
 
@@ -92,7 +92,7 @@ static void	sprites_draw_x_loop(t_data *data, t_sprites *spr, t_anim *tmp)
 				* TEX / spr->sprite_width) / 256;
 		if (spr->transform_y > 0 && x > 0 && x < WIDTH
 			&& spr->transform_y < data->z_buffer[x])
-			sprites_draw_y_loop(data, spr, tmp, x);
+			sprites_y_loop(data, spr, tmp, x);
 	}
 }
 
@@ -108,7 +108,7 @@ void	sprites_handle(t_data *data)
 		spr.sprite_x = tmp->x - data->p.x;
 		spr.sprite_y = tmp->y - data->p.y;
 		sprites_start_end(data, &spr);
-		sprites_draw_x_loop(data, &spr, tmp);
+		sprites_x_loop(data, &spr, tmp);
 		--tmp->stage;
 		if (tmp->stage == 0)
 			tmp->stage = 150;

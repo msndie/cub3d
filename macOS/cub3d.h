@@ -6,7 +6,7 @@
 /*   By: sclam <sclam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 14:48:12 by sclam             #+#    #+#             */
-/*   Updated: 2022/05/30 14:42:21 by sclam            ###   ########.fr       */
+/*   Updated: 2022/05/30 19:57:00 by sclam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,7 +146,7 @@ typedef struct s_dda
 	double	deltadistx;
 	double	deltadisty;
 	double	perpwalldist;
-	double	wallyoffset;
+	double	walloffset;
 	double	wallx;
 	double	step;
 	double	texpos;
@@ -211,13 +211,14 @@ void	door_counter(t_data *data);
 void	opening_door(t_dda *dda, t_point *p, int value);
 void	closing_door(t_dda *dda, t_point *p, int value);
 void	closed_door(t_dda *dda, t_point *p);
+void	opened_door(t_dda *dda, t_point *p);
 void	door_tex_correction(t_dda *dda, int value);
 
 void	draw_square(t_img *img, int size, int colour, int out_colour, t_point p);
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
 void	draw_line(t_img *img, int colour, t_point f, t_point t);
 void	draw_player(t_data *data);
-void	draw_map(t_data *data);
+void	draw_map(t_data *data, int i, int j);
 void	draw_fc(t_data *data);
 void	draw_loop(t_data *data, t_dda *dda, int x);
 
@@ -241,7 +242,7 @@ int	get_tex_colour(t_img *img, int x, int y);
 
 int		check_walls(t_data *data);
 int		map_checker(t_data *data);
-int		parse_colour(char *str, char flag, t_data *data);
+t_colour	*parse_colour(char *str);
 void	init_map(char *argv, t_data *data);
 int		error(char *str);
 void	free_all(t_data *data);
@@ -249,7 +250,6 @@ int		ft_in_set(char c, char const *set);
 int		create_trgb(int t, int r, int g, int b);
 void	cub_extension(char *argv);
 void	null_init(t_data *data);
-void	draw_map(t_data *data);
 void	map_to_int(t_data *data);
 
 #endif /*CUB3D_H*/

@@ -6,7 +6,7 @@
 /*   By: sclam <sclam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 14:43:39 by sclam             #+#    #+#             */
-/*   Updated: 2022/05/29 18:42:19 by sclam            ###   ########.fr       */
+/*   Updated: 2022/05/30 19:49:06 by sclam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ int	main(int argc, char **argv)
 	}
 	map_to_int(&data);
 	draw_player(&data);
-	draw_map(&data);
+	draw_map(&data, -1, -1);
 	data.z_buffer = (double *)malloc(sizeof(double) * WIDTH);
 	if (!data.z_buffer)
 	{

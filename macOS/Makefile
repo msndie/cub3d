@@ -6,7 +6,7 @@
 #    By: sclam <sclam@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/23 22:03:23 by sclam             #+#    #+#              #
-#    Updated: 2022/05/29 19:03:37 by sclam            ###   ########.fr        #
+#    Updated: 2022/05/30 19:19:57 by sclam            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ SRCS	=	main.c \
 
 CC		=	gcc
 
-WWW		=	-Wall -Wextra
+WWW		=	-Wall -Wextra -Werror
 
 MLX		=	-Lmlx -lmlx -framework OpenGL -framework AppKit
 

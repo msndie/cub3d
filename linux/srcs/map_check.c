@@ -6,7 +6,7 @@
 /*   By: sclam <sclam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 20:14:45 by sclam             #+#    #+#             */
-/*   Updated: 2022/05/29 23:57:40 by sclam            ###   ########.fr       */
+/*   Updated: 2022/05/30 19:53:40 by sclam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,11 @@
 
 static int	is_full_info(t_info *info)
 {
-	if (info->c && info->ea && info->f && info->no && info->so && info->we && info->dr
-		&& info->anim_first && info->anim_second && info->anim_third)
-		return 1;
-	return 0;
+	if (info->c && info->ea && info->f && info->no && info->so && info->we
+		&& info->dr && info->anim_first && info->anim_second
+		&& info->anim_third && info->dr_wall)
+		return (1);
+	return (0);
 }
 
 static int	check_line(char *str)
@@ -56,8 +57,37 @@ t_img	*asset(t_data *data, char *str)
 		return (NULL);
 	}
 	img->addr = mlx_get_data_addr(img->img, &img->bits,
-		&img->line_length, &img->endian);
+			&img->line_length, &img->endian);
 	return (img);
+}
+
+static int	compare_identifiers(char **strs, t_data *data)
+{
+	if (!ft_strncmp("NO", strs[0], 3) && !data->info.no)
+		data->info.no = asset(data, strs[1]);
+	else if (!ft_strncmp("SO", strs[0], 3) && !data->info.so)
+		data->info.so = asset(data, strs[1]);
+	else if (!ft_strncmp("WE", strs[0], 3) && !data->info.we)
+		data->info.we = asset(data, strs[1]);
+	else if (!ft_strncmp("EA", strs[0], 3) && !data->info.ea)
+		data->info.ea = asset(data, strs[1]);
+	else if (!ft_strncmp("DR", strs[0], 3) && !data->info.dr)
+		data->info.dr = asset(data, strs[1]);
+	else if (!ft_strncmp("DW", strs[0], 3) && !data->info.dr_wall)
+		data->info.dr_wall = asset(data, strs[1]);
+	else if (!ft_strncmp("H1", strs[0], 3) && !data->info.anim_first)
+		data->info.anim_first = asset(data, strs[1]);
+	else if (!ft_strncmp("H2", strs[0], 3) && !data->info.anim_second)
+		data->info.anim_second = asset(data, strs[1]);
+	else if (!ft_strncmp("H3", strs[0], 3) && !data->info.anim_third)
+		data->info.anim_third = asset(data, strs[1]);
+	else if (!ft_strncmp("F", strs[0], 2) && !data->info.f)
+		data->info.f = parse_colour(strs[1]);
+	else if (!ft_strncmp("C", strs[0], 2) && !data->info.c)
+		data->info.c = parse_colour(strs[1]);
+	else
+		return (1);
+	return (0);
 }
 
 static int	type_id(t_data *data, char *str)
@@ -71,27 +101,7 @@ static int	type_id(t_data *data, char *str)
 		ret = 2;
 	else if (ft_char_arr_len(strs) < 2 || ft_char_arr_len(strs) > 2)
 		ret = 1;
-	else if (!ft_strncmp("NO", strs[0], 3) && !data->info.no)
-		data->info.no = asset(data, strs[1]);
-	else if (!ft_strncmp("SO", strs[0], 3) && !data->info.so)
-		data->info.so = asset(data, strs[1]);
-	else if (!ft_strncmp("WE", strs[0], 3) && !data->info.we)
-		data->info.we = asset(data, strs[1]);
-	else if (!ft_strncmp("EA", strs[0], 3) && !data->info.ea)
-		data->info.ea = asset(data, strs[1]);
-	else if (!ft_strncmp("DR", strs[0], 3) && !data->info.dr)
-		data->info.dr = asset(data, strs[1]);
-	else if (!ft_strncmp("H1", strs[0], 3) && !data->info.anim_first)
-		data->info.anim_first = asset(data, strs[1]);
-	else if (!ft_strncmp("H2", strs[0], 3) && !data->info.anim_second)
-		data->info.anim_second = asset(data, strs[1]);
-	else if (!ft_strncmp("H3", strs[0], 3) && !data->info.anim_third)
-		data->info.anim_third = asset(data, strs[1]);
-	else if (!ft_strncmp("F", strs[0], 2) && !data->info.f)
-		parse_colour(strs[1], 'f', data);
-	else if (!ft_strncmp("C", strs[0], 2) && !data->info.c)
-		parse_colour(strs[1], 'c', data);
-	else
+	else if (compare_identifiers(strs, data))
 		ret = 1;
 	ft_free_arr((void **)strs);
 	return (ret);
@@ -135,7 +145,7 @@ int	map_checker(t_data *data)
 			if (check_line(data->file[i]))
 				return (error("Map"));
 			if (is_full_info(&data->info))
-				break;
+				break ;
 			if (data->file[i][ft_strlen(data->file[i]) - 1] == '\n')
 				data->file[i][ft_strlen(data->file[i]) - 1] = '\0';
 			ret = type_id(data, data->file[i]);
@@ -212,7 +222,7 @@ int	check_walls(t_data *data)
 		{
 			if (check_left_right(data, i, j) || check_up_down(data, i, j)
 				|| !ft_in_set(data->info.map[i][j], " 140NSWEH"))
-				return (1);			
+				return (1);
 			++j;
 		}
 		++i;

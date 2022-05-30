@@ -6,7 +6,7 @@
 /*   By: sclam <sclam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 20:15:16 by sclam             #+#    #+#             */
-/*   Updated: 2022/05/29 18:29:24 by sclam            ###   ########.fr       */
+/*   Updated: 2022/05/30 19:05:02 by sclam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,5 +97,12 @@ void	null_init(t_data *data)
 	data->info.anim_first = NULL;
 	data->info.anim_second = NULL;
 	data->info.anim_third = NULL;
+	data->info.dr_wall = NULL;
 	data->dda = NULL;
+	data->p.x = -1;
+	data->p.y = -1;
+	data->rays.plane_x = 0.0;
+	data->rays.plane_y = 0.0;
+	data->rays.dir_x = 0.0;
+	data->rays.dir_y = 0.0;
 }

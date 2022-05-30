@@ -6,7 +6,7 @@
 /*   By: sclam <sclam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/29 18:33:35 by sclam             #+#    #+#             */
-/*   Updated: 2022/05/29 18:33:53 by sclam            ###   ########.fr       */
+/*   Updated: 2022/05/30 19:50:29 by sclam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 	char	*dst;
 
 	dst = img->addr + (y * img->line_length + x * (img->bits / 8));
-	*(unsigned int*)dst = color;
+	*(unsigned int *)dst = color;
 }
 
 void	draw_square(t_img *img, int size, int colour, int out_colour, t_point p)
