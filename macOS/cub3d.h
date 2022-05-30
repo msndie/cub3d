@@ -6,7 +6,7 @@
 /*   By: sclam <sclam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 14:48:12 by sclam             #+#    #+#             */
-/*   Updated: 2022/05/29 19:01:27 by sclam            ###   ########.fr       */
+/*   Updated: 2022/05/30 14:42:21 by sclam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ typedef struct s_info
 	t_img		*ea;
 
 	t_img		*dr;
+	t_img		*dr_wall;
 	t_img		*anim_first;
 	t_img		*anim_second;
 	t_img		*anim_third;
