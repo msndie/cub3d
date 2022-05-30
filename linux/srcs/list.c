@@ -6,7 +6,7 @@
 /*   By: sclam <sclam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 16:19:02 by sclam             #+#    #+#             */
-/*   Updated: 2022/05/30 01:03:40 by sclam            ###   ########.fr       */
+/*   Updated: 2022/05/30 12:39:10 by sclam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,12 +75,12 @@ int	sprites_create(t_data *data)
 	size_t	j;
 	t_anim	*tmp;
 
-	for (int i = 0; i < ft_char_arr_len(data->info.map); i++) {
-		for (int j = 0; j < ft_strlen(data->info.map[i]); j++) {
-			printf("%c", data->info.map[i][j]);
-		}
-		printf("\n");
-	}
+	// for (int i = 0; i < ft_char_arr_len(data->info.map); i++) {
+	// 	for (int j = 0; j < ft_strlen(data->info.map[i]); j++) {
+	// 		printf("%c", data->info.map[i][j]);
+	// 	}
+	// 	printf("\n");
+	// }
 	i = -1;
 	while (++i < ft_char_arr_len(data->info.map))
 	{

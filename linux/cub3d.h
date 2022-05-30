@@ -6,7 +6,7 @@
 /*   By: sclam <sclam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 14:48:12 by sclam             #+#    #+#             */
-/*   Updated: 2022/05/30 02:19:02 by sclam            ###   ########.fr       */
+/*   Updated: 2022/05/30 12:53:49 by sclam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@
 #define RIGHT 65363
 #define TILDA 96
 #define SPACEBAR 32
-#define WIDTH 1024
-#define HEIGHT 780
+#define WIDTH 1280
+#define HEIGHT 720
 #define TEX 64
 #define MV_SPEED 0.08
 #define ROT_SPEED 0.05

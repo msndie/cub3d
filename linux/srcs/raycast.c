@@ -6,7 +6,7 @@
 /*   By: sclam <sclam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/29 18:40:07 by sclam             #+#    #+#             */
-/*   Updated: 2022/05/29 18:59:05 by sclam            ###   ########.fr       */
+/*   Updated: 2022/05/30 13:04:33 by sclam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,11 +103,11 @@ static void	texture_pos(t_dda *dda, int pitch, int value)
 		dda->texx = TEX - dda->texx - 1;
 	if (dda->side == 1 && dda->raydiry < 0)
 		dda->texx = TEX - dda->texx - 1;
+	if (dda->hit == 2 && (value > DOOR_CLOSED || value < DOOR_OPENDED * -1))
+		door_tex_correction(dda, value);
 	dda->step = 1.0 * TEX / dda->lineheight;
 	dda->texpos = (dda->drawstart - pitch - HEIGHT / 2 + dda->lineheight / 2)
 		* dda->step;
-	if (dda->hit == 2 && (value > DOOR_CLOSED || value < DOOR_OPENDED * -1))
-		door_tex_correction(dda, value);
 }
 
 void	main_raycast_loop(t_dda *dda, t_data *data)

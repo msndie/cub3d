@@ -6,7 +6,7 @@
 /*   By: sclam <sclam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 14:43:39 by sclam             #+#    #+#             */
-/*   Updated: 2022/05/30 02:16:14 by sclam            ###   ########.fr       */
+/*   Updated: 2022/05/30 12:48:27 by sclam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,7 @@ int	loop_hook(t_data *data)
 	prapare_img_and_keys(data);
 	draw_fc(data);
 	main_raycast_loop(dda, data);
-	// printf("test\n");
-	// sprites_handle(data);
+	sprites_handle(data);
 	door_counter(data);
 	render(data);
 	return (0);
@@ -92,12 +91,12 @@ int	main(int argc, char **argv)
 		ft_putendl_fd("Error\nWalls problem", 2);
 		exit(EXIT_FAILURE);
 	}
-	// if (sprites_create(&data))
-	// {
-	// 	free_all(&data);
-	// 	ft_putendl_fd("Error\nMalloc", 2);
-	// 	exit(EXIT_FAILURE);
-	// }
+	if (sprites_create(&data))
+	{
+		free_all(&data);
+		ft_putendl_fd("Error\nMalloc", 2);
+		exit(EXIT_FAILURE);
+	}
 	map_to_int(&data);
 	draw_player(&data);
 	draw_map(&data);

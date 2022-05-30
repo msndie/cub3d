@@ -6,7 +6,7 @@
 /*   By: sclam <sclam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/29 18:36:04 by sclam             #+#    #+#             */
-/*   Updated: 2022/05/29 18:37:08 by sclam            ###   ########.fr       */
+/*   Updated: 2022/05/30 13:11:01 by sclam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void	opening_door(t_dda *dda, t_point *p, int value)
 	}
 	dda->wallx -= floor(dda->wallx);
 	dda->wallx = 1 - dda->wallx;
-	if (dda->wallx > ((double)(value * -1 - DOOR_OPENDED) / 100))
+	if (dda->wallx >= ((double)(value * -1 - DOOR_OPENDED) / 100))
 		dda->hit = 2;
 }
 
