@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_read.c                                         :+:      :+:    :+:   */
+/*   map_read_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sclam <sclam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 20:14:37 by sclam             #+#    #+#             */
-/*   Updated: 2022/05/31 13:58:22 by sclam            ###   ########.fr       */
+/*   Updated: 2022/05/31 14:36:57 by sclam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incs/cub3d.h"
+#include "../incs/cub3d_bonus.h"
 
 char	**parse_colour_helper(char *str)
 {
@@ -146,8 +146,10 @@ void	char_to_int_representation(char c, t_data *data, int i, int j)
 	}
 	if (c == '1')
 		data->info.int_map[i][j] = WALL;
-	else if (ft_in_set(c, "0NSWE"))
+	else if (ft_in_set(c, "0NSWEH"))
 		data->info.int_map[i][j] = EMPTY;
+	else if (c == '4')
+		data->info.int_map[i][j] = DOOR_CLOSED;
 	else if (c == ' ')
 		data->info.int_map[i][j] = SPACE;
 }

@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   utils_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sclam <sclam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 20:15:16 by sclam             #+#    #+#             */
-/*   Updated: 2022/05/31 14:22:19 by sclam            ###   ########.fr       */
+/*   Updated: 2022/05/31 14:37:18 by sclam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incs/cub3d.h"
+#include "../incs/cub3d_bonus.h"
 
 int	error(char *str)
 {
@@ -22,6 +22,8 @@ int	error(char *str)
 
 void	free_all(t_data *data)
 {
+	if (data->z_buffer)
+		free(data->z_buffer);
 	if (data->file)
 		ft_free_arr((void **)data->file);
 	if (data->info.map)
@@ -42,6 +44,8 @@ void	free_all(t_data *data)
 		ft_free_arr((void **)data->info.int_map);
 	if (data->mlx.mlx)
 		mlx_destroy_window(data->mlx.mlx, data->mlx.win);
+	if (data->anims)
+		ft_free_lists(data->anims);
 	if (data->dda)
 		free(data->dda);
 }
@@ -88,6 +92,12 @@ void	null_init(t_data *data)
 	data->info.map = NULL;
 	data->img.img = NULL;
 	data->mlx.mlx = NULL;
+	data->info.dr = NULL;
+	data->z_buffer = NULL;
+	data->info.anim_first = NULL;
+	data->info.anim_second = NULL;
+	data->info.anim_third = NULL;
+	data->info.dr_wall = NULL;
 	data->dda = NULL;
 	data->p.x = -1;
 	data->p.y = -1;

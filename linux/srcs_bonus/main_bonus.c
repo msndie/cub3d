@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sclam <sclam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 14:43:39 by sclam             #+#    #+#             */
-/*   Updated: 2022/05/30 20:04:51 by sclam            ###   ########.fr       */
+/*   Updated: 2022/05/31 14:36:48 by sclam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../incs/cub3d_bonus.h"
 
 static int	ft_close(t_data *data)
 {
@@ -112,9 +112,9 @@ int	main(int argc, char **argv)
 		free_all(&data);
 		exit(EXIT_FAILURE);
 	}
-	mlx_mouse_hide(data.mlx.mlx, data.mlx.win);
-	mlx_mouse_move(data.mlx.mlx, data.mlx.win, WIDTH / 2, HEIGHT / 2);
-	mlx_mouse_get_pos(data.mlx.mlx, data.mlx.win, &data.mouse.x, &data.mouse.y);
+	mlx_mouse_hide();
+	mlx_mouse_move(data.mlx.win, WIDTH / 2, HEIGHT / 2);
+	mlx_mouse_get_pos(data.mlx.win, &data.mouse.x, &data.mouse.y);
 	data.keys.a = 0;
 	data.keys.s = 0;
 	data.keys.w = 0;
@@ -125,8 +125,8 @@ int	main(int argc, char **argv)
 	data.keys.m = 0;
 	data.rays.pitch = 0;
 	mlx_hook(data.mlx.win, 17, 0, ft_close, &data);
-	mlx_hook(data.mlx.win, 2, 1L << 0, key_pressed, &data);
-	mlx_hook(data.mlx.win, 3, 1L << 1, key_released, &data);
+	mlx_hook(data.mlx.win, 2, 0, key_pressed, &data);
+	mlx_hook(data.mlx.win, 3, 0, key_released, &data);
 	mlx_loop_hook(data.mlx.mlx, loop_hook, &data);
 	mlx_loop(data.mlx.mlx);
 }

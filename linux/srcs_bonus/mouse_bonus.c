@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mouse.c                                            :+:      :+:    :+:   */
+/*   mouse_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sclam <sclam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/29 18:38:58 by sclam             #+#    #+#             */
-/*   Updated: 2022/05/30 20:05:39 by sclam            ###   ########.fr       */
+/*   Updated: 2022/05/31 14:37:02 by sclam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "../incs/cub3d_bonus.h"
 
 static void	horiz_mouse(t_data *data, t_mouse *current)
 {
@@ -40,11 +40,11 @@ void	mouse_handle(t_data *data)
 {
 	t_mouse	current;
 
-	mlx_mouse_get_pos(data->mlx.mlx, data->mlx.win, &current.x, &current.y);
+	mlx_mouse_get_pos(data->mlx.win, &current.x, &current.y);
 	if (data->mouse.y - 5 > current.y && data->rays.pitch < 900)
 		data->rays.pitch += 25;
 	else if (data->mouse.y + 5 < current.y && data->rays.pitch > -900)
 		data->rays.pitch -= 25;
 	horiz_mouse(data, &current);
-	mlx_mouse_move(data->mlx.mlx, data->mlx.win, WIDTH / 2, HEIGHT / 2);
+	mlx_mouse_move(data->mlx.win, WIDTH / 2, HEIGHT / 2);
 }

@@ -6,11 +6,11 @@
 /*   By: sclam <sclam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/29 18:33:35 by sclam             #+#    #+#             */
-/*   Updated: 2022/05/30 19:50:29 by sclam            ###   ########.fr       */
+/*   Updated: 2022/05/31 14:40:13 by sclam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "../incs/cub3d.h"
 
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 {
