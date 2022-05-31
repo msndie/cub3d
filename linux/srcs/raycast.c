@@ -6,7 +6,7 @@
 /*   By: sclam <sclam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/29 18:40:07 by sclam             #+#    #+#             */
-/*   Updated: 2022/05/31 15:02:44 by sclam            ###   ########.fr       */
+/*   Updated: 2022/05/31 18:02:16 by sclam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,18 @@ static void	perform_dda(t_data *data, t_dda *dda)
 	while (dda->hit == 0)
 	{
 		get_side(dda);
-		value = data->info.int_map[dda->mapy][dda->mapx];
-		if (value == WALL)
-			dda->hit = 1;
+		if (dda->mapy >= (int)ft_char_arr_len(data->info.map) - 1 || dda->mapy < 0)
+			dda->hit = 2;
+		else if (dda->mapx >= (int)ft_strlen(data->info.map[dda->mapy]) - 1 || dda->mapx < 0)
+			dda->hit = 2;
+		else if (data->info.map[dda->mapy][dda->mapx] == ' ')
+			dda->hit = 2;
+		else
+		{
+			value = data->info.int_map[dda->mapy][dda->mapx];
+			if (value == WALL)
+				dda->hit = 1;
+		}
 	}
 }
 
