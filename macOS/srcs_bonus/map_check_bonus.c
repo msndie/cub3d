@@ -1,20 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_check.c                                        :+:      :+:    :+:   */
+/*   map_check_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sclam <sclam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 20:14:45 by sclam             #+#    #+#             */
-/*   Updated: 2022/05/31 13:58:19 by sclam            ###   ########.fr       */
+/*   Updated: 2022/05/31 14:36:52 by sclam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incs/cub3d.h"
+#include "../incs/cub3d_bonus.h"
 
 static int	is_full_info(t_info *info)
 {
-	if (info->c && info->ea && info->f && info->no && info->so && info->we)
+	if (info->c && info->ea && info->f && info->no && info->so && info->we
+		&& info->dr && info->anim_first && info->anim_second
+		&& info->anim_third && info->dr_wall)
 		return (1);
 	return (0);
 }
@@ -75,6 +77,16 @@ static int	compare_identifiers(char **strs, t_data *data)
 		data->info.we = asset(data, strs[1]);
 	else if (!ft_strncmp("EA", strs[0], 3) && !data->info.ea)
 		data->info.ea = asset(data, strs[1]);
+	else if (!ft_strncmp("DR", strs[0], 3) && !data->info.dr)
+		data->info.dr = asset(data, strs[1]);
+	else if (!ft_strncmp("DW", strs[0], 3) && !data->info.dr_wall)
+		data->info.dr_wall = asset(data, strs[1]);
+	else if (!ft_strncmp("H1", strs[0], 3) && !data->info.anim_first)
+		data->info.anim_first = asset(data, strs[1]);
+	else if (!ft_strncmp("H2", strs[0], 3) && !data->info.anim_second)
+		data->info.anim_second = asset(data, strs[1]);
+	else if (!ft_strncmp("H3", strs[0], 3) && !data->info.anim_third)
+		data->info.anim_third = asset(data, strs[1]);
 	else if (!ft_strncmp("F", strs[0], 2) && !data->info.f)
 		data->info.f = parse_colour(strs[1]);
 	else if (!ft_strncmp("C", strs[0], 2) && !data->info.c)
@@ -170,11 +182,11 @@ static int	check_up_down(t_data *data, int i, int j)
 		down = -1;
 	else
 		down = i + 1;
-	if (p[i][j] == ' ' && (up != -1 && ft_in_set(p[up][j], "0NSWE")))
+	if (p[i][j] == ' ' && (up != -1 && ft_in_set(p[up][j], "40NSWEH")))
 		return (1);
-	if (p[i][j] == ' ' && (down != -1 && ft_in_set(p[down][j], "0NSWE")))
+	if (p[i][j] == ' ' && (down != -1 && ft_in_set(p[down][j], "40NSWEH")))
 		return (1);
-	if (ft_in_set(p[i][j], "0NSWE") && (up == -1 || down == -1))
+	if (ft_in_set(p[i][j], "40NSWEH") && (up == -1 || down == -1))
 		return (1);
 	return (0);
 }
@@ -194,11 +206,11 @@ static int	check_left_right(t_data *data, int i, int j)
 		right = -1;
 	else
 		right = j + 1;
-	if (p[i][j] == ' ' && (left != -1 && ft_in_set(p[i][left], "0NSWE")))
+	if (p[i][j] == ' ' && (left != -1 && ft_in_set(p[i][left], "40NSWEH")))
 		return (1);
-	if (p[i][j] == ' ' && (right != -1 && ft_in_set(p[i][right], "0NSWE")))
+	if (p[i][j] == ' ' && (right != -1 && ft_in_set(p[i][right], "40NSWEH")))
 		return (1);
-	if (ft_in_set(p[i][j], "0NSWE") && (left == -1 || right == -1))
+	if (ft_in_set(p[i][j], "40NSWEH") && (left == -1 || right == -1))
 		return (1);
 	return (0);
 }
@@ -215,7 +227,7 @@ int	check_walls(t_data *data)
 		while (j < ft_strlen(data->info.map[i]))
 		{
 			if (check_left_right(data, i, j) || check_up_down(data, i, j)
-				|| !ft_in_set(data->info.map[i][j], " 10NSWE"))
+				|| !ft_in_set(data->info.map[i][j], " 140NSWEH"))
 				return (1);
 			++j;
 		}

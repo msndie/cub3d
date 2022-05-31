@@ -1,24 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.h                                            :+:      :+:    :+:   */
+/*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sclam <sclam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 14:48:12 by sclam             #+#    #+#             */
-/*   Updated: 2022/05/30 19:57:00 by sclam            ###   ########.fr       */
+/*   Updated: 2022/05/31 14:40:57 by sclam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# include "./libft/libft.h"
+# include "../libft/libft.h"
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <fcntl.h>
 # include <stdio.h>
-# include "./mlx/mlx.h"
+# include "../mlx/mlx.h"
 # include <math.h>
 
 #define MAP_TILE 4

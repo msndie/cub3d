@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   input.c                                            :+:      :+:    :+:   */
+/*   input_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sclam <sclam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/29 18:34:17 by sclam             #+#    #+#             */
-/*   Updated: 2022/05/31 13:58:08 by sclam            ###   ########.fr       */
+/*   Updated: 2022/05/31 14:36:42 by sclam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incs/cub3d.h"
+#include "../incs/cub3d_bonus.h"
 
 int	key_pressed(int keycode, t_data *data)
 {
@@ -26,6 +26,12 @@ int	key_pressed(int keycode, t_data *data)
 		data->keys.left = 1;
 	else if (keycode == RIGHT)
 		data->keys.right = 1;
+	if (keycode == TILDA)
+		data->keys.tilda = data->keys.tilda ^ 1;
+	if (keycode == M)
+		data->keys.m = data->keys.m ^ 1;
+	if (keycode == SPACEBAR)
+		door_handle(data);
 	return (0);
 }
 

@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   movement.c                                         :+:      :+:    :+:   */
+/*   movement_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sclam <sclam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/29 18:38:13 by sclam             #+#    #+#             */
-/*   Updated: 2022/05/31 13:58:31 by sclam            ###   ########.fr       */
+/*   Updated: 2022/05/31 14:37:05 by sclam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incs/cub3d.h"
+#include "../incs/cub3d_bonus.h"
 
 void	move_forvard(t_data *data)
 {
@@ -18,11 +18,11 @@ void	move_forvard(t_data *data)
 
 	value = data->info.int_map[(int)(data->p.y + data->rays.dir_y * MV_SPEED)]
 	[(int)data->p.x];
-	if (value == EMPTY)
+	if (value == EMPTY || value == DOOR_OPENDED)
 		data->p.y += data->rays.dir_y * MV_SPEED;
 	value = data->info.int_map[(int)data->p.y]
 	[(int)(data->p.x + data->rays.dir_x * MV_SPEED)];
-	if (value == EMPTY)
+	if (value == EMPTY || value == DOOR_OPENDED)
 		data->p.x += data->rays.dir_x * MV_SPEED;
 }
 
@@ -32,11 +32,11 @@ void	move_back(t_data *data)
 
 	value = data->info.int_map[(int)(data->p.y - data->rays.dir_y * MV_SPEED)]
 	[(int)data->p.x];
-	if (value == EMPTY)
+	if (value == EMPTY || value == DOOR_OPENDED)
 		data->p.y -= data->rays.dir_y * MV_SPEED;
 	value = data->info.int_map[(int)data->p.y]
 	[(int)(data->p.x - data->rays.dir_x * MV_SPEED)];
-	if (value == EMPTY)
+	if (value == EMPTY || value == DOOR_OPENDED)
 		data->p.x -= data->rays.dir_x * MV_SPEED;
 }
 
@@ -46,11 +46,11 @@ void	move_left(t_data *data)
 
 	value = data->info.int_map[(int)(data->p.y - data->rays.plane_y * MV_SPEED)]
 	[(int)data->p.x];
-	if (value == EMPTY)
+	if (value == EMPTY || value == DOOR_OPENDED)
 		data->p.y -= data->rays.plane_y * MV_SPEED;
 	value = data->info.int_map[(int)data->p.y]
 	[(int)(data->p.x - data->rays.plane_x * MV_SPEED)];
-	if (value == EMPTY)
+	if (value == EMPTY || value == DOOR_OPENDED)
 		data->p.x -= data->rays.plane_x * MV_SPEED;
 }
 
@@ -60,11 +60,11 @@ void	move_right(t_data *data)
 
 	value = data->info.int_map[(int)(data->p.y + data->rays.plane_y * MV_SPEED)]
 	[(int)data->p.x];
-	if (value == EMPTY)
+	if (value == EMPTY || value == DOOR_OPENDED)
 		data->p.y += data->rays.plane_y * MV_SPEED;
 	value = data->info.int_map[(int)data->p.y]
 	[(int)(data->p.x + data->rays.plane_x * MV_SPEED)];
-	if (value == EMPTY)
+	if (value == EMPTY || value == DOOR_OPENDED)
 		data->p.x += data->rays.plane_x * MV_SPEED;
 }
 
