@@ -6,7 +6,7 @@
 /*   By: sclam <sclam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 14:43:39 by sclam             #+#    #+#             */
-/*   Updated: 2022/05/31 14:03:13 by sclam            ###   ########.fr       */
+/*   Updated: 2022/05/31 15:08:58 by sclam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,8 +95,8 @@ int	main(int argc, char **argv)
 	data.keys.right = 0;
 	data.rays.pitch = 0;
 	mlx_hook(data.mlx.win, 17, 0, ft_close, &data);
-	mlx_hook(data.mlx.win, 2, 0, key_pressed, &data);
-	mlx_hook(data.mlx.win, 3, 0, key_released, &data);
+	mlx_hook(data.mlx.win, 2, 1L << 0, key_pressed, &data);
+	mlx_hook(data.mlx.win, 3, 1L << 1, key_released, &data);
 	mlx_loop_hook(data.mlx.mlx, loop_hook, &data);
 	mlx_loop(data.mlx.mlx);
 }

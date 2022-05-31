@@ -6,7 +6,7 @@
 /*   By: sclam <sclam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/29 18:40:07 by sclam             #+#    #+#             */
-/*   Updated: 2022/05/31 14:08:03 by sclam            ###   ########.fr       */
+/*   Updated: 2022/05/31 15:02:44 by sclam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,6 @@ static void	texture_pos(t_dda *dda)
 void	main_raycast_loop(t_dda *dda, t_data *data)
 {
 	int	x;
-	int	value;
 
 	x = -1;
 	while (++x < WIDTH)
@@ -116,7 +115,6 @@ void	main_raycast_loop(t_dda *dda, t_data *data)
 		ray_direction(data, dda);
 		perform_dda(data, dda);
 		calc_draw_end_start(dda, &data->p);
-		value = data->info.int_map[dda->mapy][dda->mapx];
 		texture_pos(dda);
 		draw_loop(data, dda, x);
 	}

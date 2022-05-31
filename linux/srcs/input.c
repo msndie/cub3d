@@ -6,7 +6,7 @@
 /*   By: sclam <sclam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/29 18:34:17 by sclam             #+#    #+#             */
-/*   Updated: 2022/05/31 13:58:08 by sclam            ###   ########.fr       */
+/*   Updated: 2022/05/31 15:10:55 by sclam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	key_released(int keycode, t_data *data)
 		data->keys.left = 0;
 	else if (keycode == RIGHT)
 		data->keys.right = 0;
-	else if (keycode == 53)
+	else if (keycode == 65307)
 	{
 		free_all(data);
 		exit(EXIT_SUCCESS);

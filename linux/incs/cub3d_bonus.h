@@ -6,7 +6,7 @@
 /*   By: sclam <sclam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 14:48:12 by sclam             #+#    #+#             */
-/*   Updated: 2022/05/31 14:40:57 by sclam            ###   ########.fr       */
+/*   Updated: 2022/05/31 15:17:17 by sclam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,17 +27,17 @@
 #define WALL 1
 #define EMPTY 0
 #define SPACE -1
-#define A 0
-#define D 2
-#define W 13
-#define S 1
-#define M 46
-#define LEFT 123
-#define RIGHT 124
-#define TILDA 50
-#define SPACEBAR 49
-#define WIDTH 1860
-#define HEIGHT 1024
+#define A 97
+#define D 100
+#define W 119
+#define S 115
+#define M 109
+#define LEFT 65361
+#define RIGHT 65363
+#define TILDA 96
+#define SPACEBAR 32
+#define WIDTH 1024
+#define HEIGHT 720
 #define TEX 64
 #define MV_SPEED 0.08
 #define ROT_SPEED 0.05

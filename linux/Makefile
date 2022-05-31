@@ -6,7 +6,7 @@
 #    By: sclam <sclam@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/23 22:03:23 by sclam             #+#    #+#              #
-#    Updated: 2022/05/31 14:43:12 by sclam            ###   ########.fr        #
+#    Updated: 2022/05/31 15:06:01 by sclam            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,11 +39,11 @@ SRCS_B	=	srcs_bonus/doors_bonus.c \
 
 UNION_S	=	srcs/draw_utils.c \
 
-CC		=	gcc
+CC		=	clang
 
 WWW		=	-Wall -Wextra -Werror
 
-MLX		=	-Lmlx -lmlx -framework OpenGL -framework AppKit
+MLX		=	-Lmlx -lmlx -lXext -lX11 -lm -lz
 
 MLX_H	=	-Imlx
 
@@ -60,7 +60,7 @@ OBJS_B	=	${SRCS_B:.c=.o} ${UNION_S:.c=.o}
 .PHONY: all clean fclean re
 
 .c.o:
-	$(CC) $(WWW) -c $< -o $@
+	$(CC) $(WWW) -Imlx -c $< -o $@
 
 $(NAME): $(SRCS) $(UNION_S) $(OBJS) $(HEAD)
 	@make -C ./libft
