@@ -6,6 +6,7 @@ SO ./assets/eagle.xpm
 WE ./assets/wall_2.xpm
 EA ./assets/wall_3.xpm
 DR ./assets/door.xpm
+DW ./assets/door_wall.xpm
 
 F 102,102,51
 C 153,102,153
