@@ -6,7 +6,7 @@
 /*   By: sclam <sclam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/29 18:34:17 by sclam             #+#    #+#             */
-/*   Updated: 2022/05/31 15:10:55 by sclam            ###   ########.fr       */
+/*   Updated: 2022/06/01 15:14:06 by sclam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,10 @@ void	move_camera(t_data *data)
 {
 	if (data->keys.w)
 		move_forvard(data);
-	if (data->keys.s)
+	else if (data->keys.s)
 		move_back(data);
 	if (data->keys.a)
 		move_left(data);
-	if (data->keys.d)
+	else if (data->keys.d)
 		move_right(data);
 }

@@ -6,7 +6,7 @@
 /*   By: sclam <sclam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/08 15:44:16 by sclam             #+#    #+#             */
-/*   Updated: 2022/04/13 17:07:17 by sclam            ###   ########.fr       */
+/*   Updated: 2022/06/01 15:11:31 by sclam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,5 +58,6 @@ void	*ft_realloc(void *ptr, size_t size);
 void	*ft_free_arr(void **arr);
 void	ft_put_char_arr_fd(char **arr, int fd);
 size_t	ft_char_arr_len(char **arr);
+int		ft_in_set(char c, char const *set);
 
 #endif /*LIBFT_H*/

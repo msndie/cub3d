@@ -6,7 +6,7 @@
 #    By: sclam <sclam@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/08 15:41:45 by sclam             #+#    #+#              #
-#    Updated: 2022/05/29 22:46:37 by sclam            ###   ########.fr        #
+#    Updated: 2022/06/01 15:11:18 by sclam            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ SRCS	=	ft_atoi.c ft_bzero.c ft_calloc.c \
 			ft_putnbr_fd.c ft_strtrim.c ft_itoa.c ft_split.c \
 			ft_free_arr.c gnl/get_next_line.c ft_realloc.c \
 			ft_char_arr_len.c ft_put_char_arr_fd.c \
-			ft_strjoin_free.c
+			ft_strjoin_free.c ft_in_set.c
 
 NAME	=	libft.a
 

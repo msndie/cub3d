@@ -6,11 +6,21 @@
 /*   By: sclam <sclam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/29 18:33:35 by sclam             #+#    #+#             */
-/*   Updated: 2022/05/31 14:40:13 by sclam            ###   ########.fr       */
+/*   Updated: 2022/06/01 13:35:55 by sclam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/cub3d.h"
+
+int	create_trgb(int t, int r, int g, int b)
+{
+	return (t << 24 | r << 16 | g << 8 | b);
+}
+
+int	get_tex_colour(t_img *img, int x, int y)
+{
+	return (*(int *)(img->addr + (4 * TEX * y) + (4 * x)));
+}
 
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 {
@@ -20,21 +30,22 @@ void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
-void	draw_square(t_img *img, int size, int colour, int out_colour, t_point p)
+void	draw_square(t_square *sq)
 {
 	int	i;
 	int	j;
 
-	i = p.y;
-	while (i < p.y + size)
+	i = sq->p.y;
+	while (i < sq->p.y + sq->size)
 	{
-		j = p.x;
-		while (j < p.x + size)
+		j = sq->p.x;
+		while (j < sq->p.x + sq->size)
 		{
-			if (i == 0 || i == p.y + size - 1 || j == 0 || j == p.x + size - 1)
-				my_mlx_pixel_put(img, j++, i, out_colour);
+			if (i == 0 || i == sq->p.y + sq->size - 1 || j == 0
+				|| j == sq->p.x + sq->size - 1)
+				my_mlx_pixel_put(sq->img, j++, i, sq->out_colour);
 			else
-				my_mlx_pixel_put(img, j++, i, colour);
+				my_mlx_pixel_put(sq->img, j++, i, sq->colour);
 		}
 		++i;
 	}

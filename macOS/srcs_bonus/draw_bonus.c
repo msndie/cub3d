@@ -6,51 +6,11 @@
 /*   By: sclam <sclam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 22:46:09 by sclam             #+#    #+#             */
-/*   Updated: 2022/05/31 14:36:40 by sclam            ###   ########.fr       */
+/*   Updated: 2022/06/01 13:15:50 by sclam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/cub3d_bonus.h"
-
-void	draw_player(t_data *data)
-{
-	t_point	p;
-
-	p.x = 0;
-	p.y = 0;
-	data->player.img = mlx_new_image(data->mlx.mlx, 3, 3);
-	data->player.addr = mlx_get_data_addr(data->player.img,
-			&data->player.bits,
-			&data->player.line_length, &data->player.endian);
-	draw_square(&data->player, 3, 0x00CC0066, 0x00CC0066, p);
-}
-
-void	draw_map(t_data *data, int i, int j)
-{
-	t_point	p;
-
-	data->map.img = mlx_new_image(data->mlx.mlx, data->info.width * MAP_TILE,
-			data->info.height * MAP_TILE);
-	data->map.addr = mlx_get_data_addr(data->map.img, &data->map.bits,
-			&data->map.line_length, &data->map.endian);
-	while (++i < data->info.height)
-	{
-		p.y = i * MAP_TILE;
-		j = -1;
-		while (++j < data->info.width)
-		{
-			p.x = j * MAP_TILE;
-			if (data->info.int_map[i][j] == WALL)
-				draw_square(&data->map, MAP_TILE, 0xAAB0C4DE, 0x00000000, p);
-			else if (data->info.int_map[i][j] == EMPTY)
-				draw_square(&data->map, MAP_TILE, 0xAAFFFFFF, 0xAAFFFFFF, p);
-			else if (data->info.int_map[i][j] == DOOR_CLOSED)
-				draw_square(&data->map, MAP_TILE, 0xAA00FF00, 0xAA00FF00, p);
-			else if (data->info.int_map[i][j] == SPACE)
-				draw_square(&data->map, MAP_TILE, 0xFF000000, 0xFF000000, p);
-		}
-	}
-}
 
 void	draw_fc(t_data *data)
 {
