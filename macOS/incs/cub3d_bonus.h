@@ -6,7 +6,7 @@
 /*   By: sclam <sclam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 14:48:12 by sclam             #+#    #+#             */
-/*   Updated: 2022/06/01 15:12:27 by sclam            ###   ########.fr       */
+/*   Updated: 2022/06/01 16:21:24 by sclam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,11 @@ typedef struct s_point
 
 typedef struct s_colour
 {
-	unsigned char	r;
-	unsigned char	g;
-	unsigned char	b;
-	unsigned char	t;
-	int				trgb;
+	int	r;
+	int	g;
+	int	b;
+	int	t;
+	int	trgb;
 }	t_colour;
 
 typedef struct s_img
