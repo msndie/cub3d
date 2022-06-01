@@ -6,7 +6,7 @@
 /*   By: sclam <sclam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 13:29:25 by sclam             #+#    #+#             */
-/*   Updated: 2022/06/01 16:23:33 by sclam            ###   ########.fr       */
+/*   Updated: 2022/06/01 21:04:20 by sclam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	bad_exit(t_data *data, char *str, int i)
 {
 	ft_putendl_fd(str, 2);
 	if (i != -1)
-		data->info.int_map[i] = NULL;
+		data->info.int_map[i + 1] = NULL;
 	free_all(data);
 	exit(EXIT_FAILURE);
 }
