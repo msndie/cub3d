@@ -6,7 +6,7 @@
 /*   By: sclam <sclam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 13:32:07 by sclam             #+#    #+#             */
-/*   Updated: 2022/06/01 13:32:44 by sclam            ###   ########.fr       */
+/*   Updated: 2022/06/02 13:54:29 by sclam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,17 @@ static int	check_left_right(t_data *data, int i, int j)
 	return (0);
 }
 
+static int	check_doors(t_data *data, int i, int j)
+{
+	char	**p;
+
+	p = data->info.map;
+	if (p[i][j] == '4' && (!(p[i][j + 1] == '1' && p[i][j - 1] == '1')
+			&& !(p[i + 1][j] == '1' && p[i - 1][j] == '1')))
+		return (1);
+	return (0);
+}
+
 int	check_walls(t_data *data)
 {
 	size_t	i;
@@ -73,6 +84,8 @@ int	check_walls(t_data *data)
 		{
 			if (check_left_right(data, i, j) || check_up_down(data, i, j)
 				|| !ft_in_set(data->info.map[i][j], " 140NSWEH"))
+				return (1);
+			if (check_doors(data, i, j))
 				return (1);
 			++j;
 		}
