@@ -10,3 +10,11 @@
 (Компилировалось на Manjaro Linux).
 Зависимости для Linux: xorg, x11, zlib.
 Для Linux возможно потребуется изменить номера клавиш в заголовочном файле.
+
+
+https://user-images.githubusercontent.com/90697062/172836107-df612ff0-3194-41c8-899c-4d39ea5408b2.mp4
+
+
+
+https://user-images.githubusercontent.com/90697062/172836109-0e4311cd-41da-46c9-a1a7-3d185965cb79.mp4
+
