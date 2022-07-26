@@ -79,4 +79,5 @@ void	null_init(t_data *data)
 	data->dda = NULL;
 	data->p.x = -1;
 	data->p.y = -1;
+	data->anims = NULL;
 }
